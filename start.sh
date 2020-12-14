@@ -1,0 +1,1 @@
+screen -S minecraft java -Xms1024M -jar paper_server-262.jar

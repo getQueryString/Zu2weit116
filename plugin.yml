@@ -1,0 +1,38 @@
+name: Zu2weit16
+author: Fin/getQueryString
+version: 2.0.22
+api-version: 1.16
+description: Copyright  2020
+website: https://www.youtube.com/c/mrdudecrafthd
+main: Main.main
+commands:
+  ping:
+    aliases:
+      - p
+
+  kopf:
+    aliases:
+      - head
+      - skull
+
+  clearchat:
+    aliases:
+      - chatclear
+      - cc
+
+  build:
+    aliases:
+      - b
+
+  lastfix:
+    aliases:
+      - lf
+
+  sharelocation:
+    aliases:
+      - sl
+
+  build-exception:
+  stop:
+  loc:
+  ip:
