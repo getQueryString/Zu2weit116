@@ -1,4 +1,4 @@
-// Copyright© by Fin
+// Copyright© by Fin   Rares <3
 
 package Main;
 
