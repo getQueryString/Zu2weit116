@@ -270,28 +270,14 @@ public class main extends JavaPlugin implements Listener {
     }
 
     private void Stop() {
-
         new BukkitRunnable() {
 
             @Override
             public void run() {
                 if (Bukkit.getOnlinePlayers().size() == 0) {
-
-                    Bukkit.getConsoleSender().sendMessage("§eServer wird in kürze heruntergefahren!");
-                    new BukkitRunnable() {
-                        public void runTaskTimer(int i, int i1) {
-                        }
-
-                        @Override
-                        public void run() {
-                            if (Bukkit.getOnlinePlayers().size() == 0) {
-                                //Bukkit.shutdown();
-                                Bukkit.getConsoleSender().sendMessage("§eSHUTDOWN");
-                            }
-                        }
-                    }.runTaskTimer(0, 50);
+                    Bukkit.shutdown();
                 }
             }
-        }.runTaskTimer((Plugin) this, 0, 100);
+        }.runTaskTimer((Plugin) this, 0, 6000);
     }
 }
