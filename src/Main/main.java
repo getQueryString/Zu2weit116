@@ -88,7 +88,6 @@ public class main extends JavaPlugin implements Listener {
 
         getConsoleSender().sendMessage("§aDas §3Zu2weit-Plugin §awurde erfolgreich aktiviert!");
 
-
         new BukkitRunnable() {
             @Override
             public void run() {
@@ -140,54 +139,51 @@ public class main extends JavaPlugin implements Listener {
     // From another source
     // Check Ping
     private void startRunnable() {
-        //Runnable alle 20 ticks (eine Sekunde)
         new BukkitRunnable() {
 
             @Override
             public void run() {
-                //Player loop
                 for (Player p : Bukkit.getOnlinePlayers()) {
-                    //Abfrage ob Spieler in der letzen abfrage einen Ping über 1000 hat.
+                    // Wenn der Spieler in der letzen Abfrage über 1000ms hat
                     if (pingPlayers.containsKey(p)) {
-                        //Holt die letzten pings die der Spieler hatte.
+                        // Holt die letzten Pings, die der Spieler hatte
                         ArrayList<Integer> lastPings = pingPlayers.get(p);
 
-                        //Holt den letzen Ping die der Spieler hatte.
+                        // Holt den letzen Ping, den der Spieler hatte
                         int lastPing = lastPings.get(lastPings.size() - 1);
-                        //Holt den derzeitigen Ping die der Spieler hat.
+                        // Holt den derzeitigen Ping, den der Spieler hat
                         int currentPing = getPing(p);
 
-                        //Abfrage ob schon 10 pings eingetragen sind
+                        // Wenn 15 Pings eingetragen sind
                         if (lastPings.size() >= 14) {
-                            //Abfrage ob letzer Ping über 1000 war, und ob derzeitiger Ping über 1000 ist.
+                            // Ob letzer & derzeitiger Ping über 1000ms ist
                             if (lastPing >= 1300 && currentPing >= 1300) {
-                                //Löscht den Spieler aus dem zwischenspeicher
+                                // Löscht den Spieler aus dem Zwischenspeicher
                                 pingPlayers.remove(p);
-                                //Kickt den Spieler
                                 p.kickPlayer("§cDein Ping war im vorgegebenen Zeitraum mit §e" + getPing(p) + "ms §czu hoch");
                                 continue;
                             }
                         }
-                        //Abfrage ob letzer ping > 1000 war.
+                        // Ob letzer Ping > 1000ms war
                         if (lastPing >= 1300) {
-                            //Abfrage ob derzeitiger Ping über 1000 ist
+                            // Ob derzeitiger Ping über 1000ms ist
                             if (currentPing >= 1300) {
-                                //Fügt den derzeitigen Ping zur liste hinzu.
+                                // Fügt den derzeitigen Ping zur Liste hinzu
                                 lastPings.add(currentPing);
 
-                                //Update für die HashMap
+                                // Update für die HashMap
                                 pingPlayers.remove(p);
                                 pingPlayers.put(p, lastPings);
                             } else {
-                                //Wenn nicht, wird der Spieler aus dem Zwischenspeicher gelöscht
+                                // Wenn nicht, wird der Spieler aus dem Zwischenspeicher gelöscht
                                 pingPlayers.remove(p);
                             }
                         }
                     } else {
-                        //Wenn nicht, wird der derzeitige Ping abgefragt
+                        // Wenn nicht, wird der derzeitige Ping abgefragt
                         int currentPing = getPing(p);
 
-                        //Abfrage ob derzeitiger Ping größer als 1000
+                        // Ob derzeitiger Ping > 1000ms
                         if (currentPing >= 1000) {
                             p.playSound(p.getLocation(), Sound.BLOCK_NOTE_BLOCK_BASS, 1F, 1F);
                             p.playSound(p.getLocation(), Sound.BLOCK_NOTE_BLOCK_BELL, 1F, 1F);
@@ -196,7 +192,7 @@ public class main extends JavaPlugin implements Listener {
                         } else if (currentPing >= 1300) {
                             ArrayList<Integer> pings = new ArrayList<>();
 
-                            //Wenn ja, wird der Spieler zum zwischenspeicher hinzugefügt.
+                            // Wenn ja, wird der Spieler zum Zwischenspeicher hinzugefügt
                             pings.add(currentPing);
                             pingPlayers.put(p, pings);
                         }
