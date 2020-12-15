@@ -272,8 +272,7 @@ public class main extends JavaPlugin implements Listener {
             @Override
             public void run() {
                 if (Bukkit.getOnlinePlayers().size() == 0) {
-                    //Bukkit.shutdown();
-                    Bukkit.getConsoleSender().sendMessage("§eSHUTDOWN");
+                    Bukkit.shutdown();
                 }
             }
         }.runTaskTimer((Plugin) this, 0, 6000);
