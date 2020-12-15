@@ -10,15 +10,11 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.UUID;
 
-import net.minecraft.server.v1_16_R3.Entity;
-import net.minecraft.server.v1_16_R3.EntityPlayer;
-import net.minecraft.server.v1_16_R3.PlayerConnection;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.NamespacedKey;
 import org.bukkit.Sound;
 import org.bukkit.enchantments.Enchantment;
-import org.bukkit.entity.LivingEntity;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -127,9 +123,10 @@ public class main extends JavaPlugin implements Listener {
         getCommand("loc").setExecutor(new CMD_LocationQuery());
         getCommand("ip").setExecutor(new CMD_HostAddress());
 
-        teleportCreeper();
+        AFKStop();
         startRunnable();
-        Stop();
+        teleportCreeper();
+
         getConsoleSender().sendMessage("§aDas §3Zu2weit-Plugin §awurde erfolgreich aktiviert!");
     }
 
@@ -269,13 +266,14 @@ public class main extends JavaPlugin implements Listener {
         }.runTaskTimer((Plugin) this, 0, 600);
     }
 
-    private void Stop() {
+    private void AFKStop() {
         new BukkitRunnable() {
 
             @Override
             public void run() {
                 if (Bukkit.getOnlinePlayers().size() == 0) {
-                    Bukkit.shutdown();
+                    //Bukkit.shutdown();
+                    Bukkit.getConsoleSender().sendMessage("§eSHUTDOWN");
                 }
             }
         }.runTaskTimer((Plugin) this, 0, 6000);
