@@ -94,8 +94,6 @@ public class main extends JavaPlugin implements Listener {
             public void run() {
                 if (Bukkit.getOnlinePlayers().size() != 0)
                     return;
-
-                // if no one is online, the 5 min timer will start
                 AFKStop(5);
             }
         }.runTaskTimer(this, 0, 20L * 60);
