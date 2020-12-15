@@ -7,7 +7,6 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.entity.PlayerDeathEvent;
-import ru.tehkode.permissions.bukkit.PermissionsEx;
 
 public class onDeath_p_k implements Listener {
 

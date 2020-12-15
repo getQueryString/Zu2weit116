@@ -36,3 +36,5 @@ commands:
   stop:
   loc:
   ip:
+  starttimer:
+  stoptimer:

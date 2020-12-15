@@ -54,6 +54,7 @@ public class main extends JavaPlugin implements Listener {
         plugin = this;
         Recipe.Recipe();
         instance = this;
+        Autoshutdown as = new Autoshutdown(this);
 
         EVENT_PlayerJoin join = new EVENT_PlayerJoin();
         for (Player pl : Bukkit.getOnlinePlayers())
@@ -72,6 +73,7 @@ public class main extends JavaPlugin implements Listener {
         pm.registerEvents(new PlayerInteract_EVENT(), this);
         pm.registerEvents(new Whitelist_PlayerLogin(), this);
         pm.registerEvents(new BannedTitle(), this);
+        pm.registerEvents(as, this);
         getCommand("ping").setExecutor(new CMD_Ping());
         getCommand("kopf").setExecutor(new CMD_Kopf());
         getCommand("clearchat").setExecutor(new CMD_ClearChat());
@@ -82,20 +84,22 @@ public class main extends JavaPlugin implements Listener {
         getCommand("sharelocation").setExecutor(new CMD_ShareLocation());
         getCommand("loc").setExecutor(new CMD_LocationQuery());
         getCommand("ip").setExecutor(new CMD_HostAddress());
+        /*getCommand("starttimer").setExecutor(new Autoshutdown(plugin));
+        getCommand("stoptimer").setExecutor(new Autoshutdown(plugin));*/
 
-        startRunnable();
+        startRunnableHighPlayerPing();
         teleportCreeper();
 
         getConsoleSender().sendMessage("§aDas §3Zu2weit-Plugin §awurde erfolgreich aktiviert!");
 
-        new BukkitRunnable() {
+        /*new BukkitRunnable() {
             @Override
             public void run() {
                 if (Bukkit.getOnlinePlayers().size() != 0)
                     return;
                 AFKStop(5);
             }
-        }.runTaskTimer(this, 0, 20L * 60);
+        }.runTaskTimer(this, 0, 20L * 60);*/
     }
 
     public void onDisable() {
@@ -138,7 +142,7 @@ public class main extends JavaPlugin implements Listener {
 
     // From another source
     // Check Ping
-    private void startRunnable() {
+    private void startRunnableHighPlayerPing() {
         new BukkitRunnable() {
 
             @Override
@@ -232,7 +236,7 @@ public class main extends JavaPlugin implements Listener {
         }.runTaskTimer((Plugin) this, 1200, 1200);
     }
 
-    private void AFKStop(int minutes) {
+    /*private void AFKStop(int minutes) {
         new BukkitRunnable() {
 
             @Override
@@ -241,5 +245,5 @@ public class main extends JavaPlugin implements Listener {
                     Bukkit.shutdown();
             }
         }.runTaskLater(this, 20L * 60 * minutes);
-    }
+    }*/
 }
