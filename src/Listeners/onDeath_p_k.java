@@ -8,7 +8,7 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.entity.PlayerDeathEvent;
 
 public class onDeath_p_k implements Listener {
-    public void onDeath(PlayerDeathEvent e) {
+    public static void onDeath(PlayerDeathEvent e) {
         Player p = e.getEntity();
         Player k = e.getEntity().getKiller();
         if (k != null) {

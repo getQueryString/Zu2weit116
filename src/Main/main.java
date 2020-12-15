@@ -11,18 +11,12 @@ import java.util.Map;
 import java.util.UUID;
 
 import org.bukkit.Bukkit;
-import org.bukkit.Material;
-import org.bukkit.NamespacedKey;
 import org.bukkit.Sound;
-import org.bukkit.enchantments.Enchantment;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerCommandPreprocessEvent;
 import org.bukkit.event.player.PlayerJoinEvent;
-import org.bukkit.inventory.ItemStack;
-import org.bukkit.inventory.ShapedRecipe;
-import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.plugin.Plugin;
 import org.bukkit.plugin.PluginManager;
 import org.bukkit.plugin.java.JavaPlugin;
@@ -34,7 +28,7 @@ import static org.bukkit.Bukkit.getConsoleSender;
 public class main extends JavaPlugin implements Listener {
 
     // ArrayLists
-    ArrayList<String> lore = new ArrayList<>();
+    public static ArrayList<String> lore = new ArrayList<>();
     public static ArrayList<Player> allowedPlayer = new ArrayList<>();
 
     // HashMaps
@@ -58,41 +52,7 @@ public class main extends JavaPlugin implements Listener {
 
     public void onEnable() {
         plugin = this;
-        lore.add("");
-        lore.add("Das heilige Schwert von König KingKong");
-        lore.add("§4§lM§chtiger als Notch");
-        lore.add("");
-        lore.add("§cBevor Minecraft exetierte,");
-        lore.add("§cwurde das Schwert schon von dem König angefangen");
-        lore.add("§czu schmieden. Doch nach der Reparatur wurde das");
-        lore.add("§cSchwert §c§lunzers§rbar§c.");
-        ItemStack item = new ItemStack(Material.DIAMOND_SWORD);
-        ItemModifier iteM = new ItemModifier(item);
-        item = iteM.modify().HideFlags().build();
-        ItemMeta meta = item.getItemMeta();
-        meta.setDisplayName("Schwert von König KingKong");
-        meta.setLore(lore);
-        meta.addEnchant(Enchantment.DAMAGE_ALL, 25, true);
-        meta.addEnchant(Enchantment.FIRE_ASPECT, 5, true);
-        meta.addEnchant(Enchantment.ARROW_INFINITE, -1, true);
-        meta.addEnchant(Enchantment.LUCK, -1, true);
-        meta.addEnchant(Enchantment.LOOT_BONUS_MOBS, 1, true);
-        meta.addEnchant(Enchantment.THORNS, -2, true);
-        meta.addEnchant(Enchantment.DIG_SPEED, -1, true);
-        meta.addEnchant(Enchantment.ARROW_DAMAGE, -1, true);
-        meta.setUnbreakable(true);
-        item.setItemMeta(meta);
-        NamespacedKey key = new NamespacedKey(plugin, "abcabc");
-        ShapedRecipe rc = new ShapedRecipe(key, item);
-        rc.shape(new String[]{"DPL", "NEN", "LSB"});
-        rc.setIngredient('E', Material.DRAGON_EGG);
-        rc.setIngredient('S', Material.STICK);
-        rc.setIngredient('B', Material.BLAZE_ROD);
-        rc.setIngredient('N', Material.NETHER_STAR);
-        rc.setIngredient('D', Material.DIAMOND);
-        rc.setIngredient('P', Material.BLAZE_POWDER);
-        Bukkit.addRecipe(rc);
-
+        Recipe.Recipe();
         instance = this;
 
         EVENT_PlayerJoin join = new EVENT_PlayerJoin();
@@ -137,6 +97,7 @@ public class main extends JavaPlugin implements Listener {
     public static main getPlugin() {
         return plugin;
     }
+
 
     @EventHandler
     public void onPlayerCommandPreprocess(PlayerCommandPreprocessEvent e) {
@@ -263,7 +224,7 @@ public class main extends JavaPlugin implements Listener {
                     getServer().dispatchCommand(getConsoleSender(), "tp @e[type=creeper] ~ -2 ~");
                 }
             }
-        }.runTaskTimer((Plugin) this, 0, 600);
+        }.runTaskTimer((Plugin) this, 1200, 1200);
     }
 
     private void AFKStop() {
@@ -275,6 +236,6 @@ public class main extends JavaPlugin implements Listener {
                     Bukkit.shutdown();
                 }
             }
-        }.runTaskTimer((Plugin) this, 0, 6000);
+        }.runTaskTimer((Plugin) this, 6000, 6000);
     }
 }
