@@ -13,7 +13,7 @@ import org.bukkit.entity.Player;
 public class CMD_Stop implements CommandExecutor {
     public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
         if (sender instanceof ConsoleCommandSender) {
-            if (cmd.getName().equalsIgnoreCase("stop")){
+            if (cmd.getName().equalsIgnoreCase("stop")) {
                 for (int i = 3; i > 0; i--) {
                     for (Player all : Bukkit.getOnlinePlayers()) {
                         Bukkit.broadcastMessage(
@@ -26,7 +26,8 @@ public class CMD_Stop implements CommandExecutor {
                         e.printStackTrace();
                     }
                 }
-            Bukkit.shutdown();}
+                Bukkit.shutdown();
+            }
         } else {
             Player p = (Player) sender;
             Bukkit.getConsoleSender().sendMessage("§4! §e" + p.getPlayer().getName() + " tried to stop the server");

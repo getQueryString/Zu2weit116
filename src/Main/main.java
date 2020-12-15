@@ -10,11 +10,15 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.UUID;
 
+import net.minecraft.server.v1_16_R3.Entity;
+import net.minecraft.server.v1_16_R3.EntityPlayer;
+import net.minecraft.server.v1_16_R3.PlayerConnection;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.NamespacedKey;
 import org.bukkit.Sound;
 import org.bukkit.enchantments.Enchantment;
+import org.bukkit.entity.LivingEntity;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -125,6 +129,7 @@ public class main extends JavaPlugin implements Listener {
 
         teleportCreeper();
         startRunnable();
+        Stop();
         getConsoleSender().sendMessage("§aDas §3Zu2weit-Plugin §awurde erfolgreich aktiviert!");
     }
 
@@ -216,7 +221,7 @@ public class main extends JavaPlugin implements Listener {
                         int currentPing = getPing(p);
 
                         //Abfrage ob derzeitiger Ping größer als 1000
-                        if(currentPing >= 1000) {
+                        if (currentPing >= 1000) {
                             p.playSound(p.getLocation(), Sound.BLOCK_NOTE_BLOCK_BASS, 1F, 1F);
                             p.playSound(p.getLocation(), Sound.BLOCK_NOTE_BLOCK_BELL, 1F, 1F);
                             p.sendMessage("§4§lACHTUNG: §4Hoher Ping!: §e" + getPing(p) + "ms.");
@@ -259,10 +264,34 @@ public class main extends JavaPlugin implements Listener {
 
                 if (Bukkit.getOnlinePlayers().size() >= 1) {
                     getServer().dispatchCommand(getConsoleSender(), "tp @e[type=creeper] ~ -2 ~");
-
                 }
             }
         }.runTaskTimer((Plugin) this, 0, 600);
     }
 
+    private void Stop() {
+
+        new BukkitRunnable() {
+
+            @Override
+            public void run() {
+                if (Bukkit.getOnlinePlayers().size() == 0) {
+
+                    Bukkit.getConsoleSender().sendMessage("§eServer wird in kürze heruntergefahren!");
+                    new BukkitRunnable() {
+                        public void runTaskTimer(int i, int i1) {
+                        }
+
+                        @Override
+                        public void run() {
+                            if (Bukkit.getOnlinePlayers().size() == 0) {
+                                //Bukkit.shutdown();
+                                Bukkit.getConsoleSender().sendMessage("§eSHUTDOWN");
+                            }
+                        }
+                    }.runTaskTimer(0, 50);
+                }
+            }
+        }.runTaskTimer((Plugin) this, 0, 100);
+    }
 }
