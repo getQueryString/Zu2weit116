@@ -2,6 +2,7 @@
 
 package CommandExecutor;
 
+import Main.main;
 import org.bukkit.Bukkit;
 import org.bukkit.Sound;
 import org.bukkit.command.Command;
@@ -9,9 +10,12 @@ import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.command.ConsoleCommandSender;
 import org.bukkit.entity.Player;
+import org.bukkit.permissions.Permission;
+import ru.tehkode.permissions.bukkit.PermissionsEx;
 
 public class CMD_Stop implements CommandExecutor {
     public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
+        Player p = (Player) sender;
         if (sender instanceof ConsoleCommandSender) {
             if (cmd.getName().equalsIgnoreCase("stop")) {
                 for (int i = 3; i > 0; i--) {
@@ -28,10 +32,11 @@ public class CMD_Stop implements CommandExecutor {
                 }
                 Bukkit.shutdown();
             }
-        } else {
-            Player p = (Player) sender;
+        } else if (PermissionsEx.getUser(p).inGroup("Owner") || PermissionsEx.getUser(p).inGroup("Vice")) {
             Bukkit.getConsoleSender().sendMessage("§4! §e" + p.getPlayer().getName() + " tried to stop the server");
             p.sendMessage("§7| §4Only for the §bConsoleCommandSender");
+        } else {
+            p.sendMessage(main.noperm);
         }
         return false;
     }

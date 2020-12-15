@@ -84,22 +84,13 @@ public class main extends JavaPlugin implements Listener {
         getCommand("sharelocation").setExecutor(new CMD_ShareLocation());
         getCommand("loc").setExecutor(new CMD_LocationQuery());
         getCommand("ip").setExecutor(new CMD_HostAddress());
-        /*getCommand("starttimer").setExecutor(new Autoshutdown(plugin));
-        getCommand("stoptimer").setExecutor(new Autoshutdown(plugin));*/
+        getCommand("starttimer").setExecutor(as);
+        getCommand("stoptimer").setExecutor(as);
 
         startRunnableHighPlayerPing();
         teleportCreeper();
 
         getConsoleSender().sendMessage("§aDas §3Zu2weit-Plugin §awurde erfolgreich aktiviert!");
-
-        /*new BukkitRunnable() {
-            @Override
-            public void run() {
-                if (Bukkit.getOnlinePlayers().size() != 0)
-                    return;
-                AFKStop(5);
-            }
-        }.runTaskTimer(this, 0, 20L * 60);*/
     }
 
     public void onDisable() {
@@ -235,15 +226,4 @@ public class main extends JavaPlugin implements Listener {
             }
         }.runTaskTimer((Plugin) this, 1200, 1200);
     }
-
-    /*private void AFKStop(int minutes) {
-        new BukkitRunnable() {
-
-            @Override
-            public void run() {
-                if (Bukkit.getOnlinePlayers().size() == 0)
-                    Bukkit.shutdown();
-            }
-        }.runTaskLater(this, 20L * 60 * minutes);
-    }*/
 }

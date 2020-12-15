@@ -15,13 +15,13 @@ import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.event.player.PlayerQuitEvent;
 import org.bukkit.plugin.Plugin;
 import org.bukkit.scheduler.BukkitRunnable;
+import ru.tehkode.permissions.bukkit.PermissionsEx;
 
 public class Autoshutdown implements Listener, CommandExecutor {
 
     Plugin context;
     BukkitRunnable timer = null;
     boolean enabled = true;
-    int minutes = 5;
 
     public Autoshutdown(Plugin plugin) {
         this.context = plugin;
@@ -39,14 +39,20 @@ public class Autoshutdown implements Listener, CommandExecutor {
             }
         };
         timer.runTaskLater(context, 20 * 60 * 5);
-        Bukkit.getConsoleSender().sendMessage("§cServer will shut down in 5 minutes because there are no players on the server");
+        if (enabled && timer != null && Bukkit.getOnlinePlayers().size() <= 1) {
+            Bukkit.getConsoleSender().sendMessage("§cServer will shut down in 5 minutes because there are no players on the server");
+        }else if (enabled && timer != null && Bukkit.getOnlinePlayers().size() == 0) {
+        }
     }
 
     public void stopTimer() {
         if (timer != null) {
             timer.cancel();
             timer = null;
-            Bukkit.getConsoleSender().sendMessage("§cTimer stopped because the server is not empty");
+            if (timer == null && Bukkit.getOnlinePlayers().size() == 0) {
+            } else if (timer == null && Bukkit.getOnlinePlayers().size() >= 1) {
+                Bukkit.getConsoleSender().sendMessage("§cTimer stopped because the server is not empty");
+            }
         }
     }
 
@@ -64,29 +70,35 @@ public class Autoshutdown implements Listener, CommandExecutor {
 
     @Override
     public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
-        /*Player p = (Player) sender;
         if (sender instanceof ConsoleCommandSender) {
-            if (cmd.getName().equalsIgnoreCase("stoptimer")) {
-                if (!enabled) {
-                    stopTimer();
-                    Bukkit.getConsoleSender().sendMessage("§cTimer wurde gestoppt");
-                } else {
-                    Bukkit.getConsoleSender().sendMessage("§cBereits gestoppt");
-                }
+            switch (label) {
+                case "starttimer":
+                    if (timer != null) {
+                        sender.sendMessage("§cThe timer is already running");
+                    } else if (Bukkit.getOnlinePlayers().size() == 0) {
+                        enabled = true;
+                        startTimer();
+                        sender.sendMessage("§cThe timer has started");
+                    } else if (Bukkit.getOnlinePlayers().size() >= 1) {
+                        sender.sendMessage("§cTimer could not be started because there are players on the server");
+                    }
+                    break;
+                case "stoptimer":
+                    if (timer == null) {
+                        sender.sendMessage("§cThe timer does not run");
+                    } else {
+                        enabled = false;
+                        stopTimer();
+                        sender.sendMessage("§cThe timer was interrupted");
+                    }
+                    break;
             }
-            if (cmd.getName().equalsIgnoreCase("starttimer")) {
-                if (enabled) {
-                    startTimer();
-                    Bukkit.getConsoleSender().sendMessage("§cTimer wurde gestartet");
-                }else{
-                    Bukkit.getConsoleSender().sendMessage("§cBereits gestartet");
-                }
-            }
+        } else if (PermissionsEx.getUser((Player) sender).inGroup("Owner")) {
+            sender.sendMessage("§7| §4Only for the §bConsoleCommandSender");
         } else {
-            p.sendMessage(main.iplayer);
+            sender.sendMessage(main.noperm);
+        }
 
-        }*/
         return false;
     }
-
 }
