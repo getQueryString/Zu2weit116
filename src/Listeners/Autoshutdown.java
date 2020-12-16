@@ -25,7 +25,6 @@ public class Autoshutdown implements Listener, CommandExecutor {
 
     public Autoshutdown(Plugin plugin) {
         this.context = plugin;
-
         if (Bukkit.getOnlinePlayers().size() == 0) {
             startTimer();
         }
