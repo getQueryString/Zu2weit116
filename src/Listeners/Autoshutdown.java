@@ -39,33 +39,30 @@ public class Autoshutdown implements Listener, CommandExecutor {
             }
         };
         timer.runTaskLater(context, 20 * 60 * 5);
-        if (enabled && timer != null && Bukkit.getOnlinePlayers().size() <= 1) {
-            Bukkit.getConsoleSender().sendMessage("§cServer will shut down in 5 minutes because there are no players on the server");
-        }else if (enabled && timer != null && Bukkit.getOnlinePlayers().size() == 0) {
-        }
+
     }
 
     public void stopTimer() {
         if (timer != null) {
             timer.cancel();
             timer = null;
-            if (timer == null && Bukkit.getOnlinePlayers().size() == 0) {
-            } else if (timer == null && Bukkit.getOnlinePlayers().size() >= 1) {
-                Bukkit.getConsoleSender().sendMessage("§cTimer stopped because the server is not empty");
-            }
         }
     }
 
     @EventHandler
     public void onPlayerQuitEvent(PlayerQuitEvent e) {
-        if (enabled && Bukkit.getOnlinePlayers().size() <= 1) {
+        if (Bukkit.getOnlinePlayers().size() <= 1) {
             startTimer();
+            Bukkit.getConsoleSender().sendMessage("§cThe server will shut down in 5 minutes because there are no more players on the server");
         }
     }
 
     @EventHandler
     public void onPlayerJoin(PlayerJoinEvent e) {
-        stopTimer();
+        if(timer != null) {
+            stopTimer();
+            Bukkit.getConsoleSender().sendMessage("§cTimer stopped because the server is no longer empty");
+        }
     }
 
     @Override
@@ -74,22 +71,22 @@ public class Autoshutdown implements Listener, CommandExecutor {
             switch (label) {
                 case "starttimer":
                     if (timer != null) {
-                        sender.sendMessage("§cThe timer is already running");
+                        sender.sendMessage("§cTimer is already running");
                     } else if (Bukkit.getOnlinePlayers().size() == 0) {
                         enabled = true;
                         startTimer();
-                        sender.sendMessage("§cThe timer has started");
+                        sender.sendMessage("§cTimer has started");
                     } else if (Bukkit.getOnlinePlayers().size() >= 1) {
                         sender.sendMessage("§cTimer could not be started because there are players on the server");
                     }
                     break;
                 case "stoptimer":
                     if (timer == null) {
-                        sender.sendMessage("§cThe timer does not run");
+                        sender.sendMessage("§cTimer does not run");
                     } else {
                         enabled = false;
                         stopTimer();
-                        sender.sendMessage("§cThe timer was interrupted");
+                        sender.sendMessage("§cTimer was interrupted");
                     }
                     break;
             }

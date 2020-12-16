@@ -91,6 +91,7 @@ public class main extends JavaPlugin implements Listener {
         teleportCreeper();
 
         getConsoleSender().sendMessage("§aDas §3Zu2weit-Plugin §awurde erfolgreich aktiviert!");
+        Bukkit.getConsoleSender().sendMessage("§cThe server will shut down in 5 minutes because there are no players on the server");
     }
 
     public void onDisable() {
