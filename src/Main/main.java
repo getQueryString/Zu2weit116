@@ -152,7 +152,7 @@ public class main extends JavaPlugin implements Listener {
 
                         // Wenn 15 Pings eingetragen sind
                         if (lastPings.size() >= 14) {
-                            // Ob letzer & derzeitiger Ping über 1000ms ist
+                            // Ob letzer & derzeitiger Ping >= 1300ms ist
                             if (lastPing >= 1300 && currentPing >= 1300) {
                                 // Löscht den Spieler aus dem Zwischenspeicher
                                 pingPlayers.remove(p);
@@ -160,9 +160,9 @@ public class main extends JavaPlugin implements Listener {
                                 continue;
                             }
                         }
-                        // Ob letzer Ping > 1000ms war
+                        // Ob letzer Ping >= 1300ms war
                         if (lastPing >= 1300) {
-                            // Ob derzeitiger Ping über 1000ms ist
+                            // Ob derzeitiger Ping >= 1300ms ist
                             if (currentPing >= 1300) {
                                 // Fügt den derzeitigen Ping zur Liste hinzu
                                 lastPings.add(currentPing);
@@ -179,7 +179,7 @@ public class main extends JavaPlugin implements Listener {
                         // Wenn nicht, wird der derzeitige Ping abgefragt
                         int currentPing = getPing(p);
 
-                        // Ob derzeitiger Ping > 1000ms
+                        // Ob derzeitiger Ping >= 1300ms
                         if (currentPing >= 1000) {
                             p.playSound(p.getLocation(), Sound.BLOCK_NOTE_BLOCK_BASS, 1F, 1F);
                             p.playSound(p.getLocation(), Sound.BLOCK_NOTE_BLOCK_BELL, 1F, 1F);

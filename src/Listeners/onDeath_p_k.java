@@ -16,7 +16,7 @@ public class onDeath_p_k implements Listener {
         Player k = e.getEntity().getKiller();
         if (k != null) {
             e.setDeathMessage(
-                    main.pre + "§e" + p.getName() + " §fwurde von §e" + k.getName() + " §fgetötet.");
+                    main.pre + " §e" + p.getName() + " §fwurde von §e" + k.getName() + " §fgetötet.");
         }
     }
 }
