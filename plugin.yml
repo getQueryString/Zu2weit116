@@ -34,7 +34,6 @@ commands:
     aliases:
       - sl
 
-  build-exception:
   stop:
   loc:
   ip:

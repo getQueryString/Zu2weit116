@@ -7,13 +7,14 @@ import org.bukkit.Bukkit;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
+import org.bukkit.command.ConsoleCommandSender;
 import org.bukkit.entity.Player;
 import org.bukkit.event.Listener;
 import ru.tehkode.permissions.bukkit.PermissionsEx;
 
+import java.io.Console;
+
 public class AntiBuild implements Listener, CommandExecutor {
-    public AntiBuild() {
-    }
 
     public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
         if (cmd.getName().equalsIgnoreCase("build")) {
@@ -54,11 +55,47 @@ public class AntiBuild implements Listener, CommandExecutor {
                 } else if (args.length >= 1) {
                     sender.sendMessage("§bBenutze: §f/§cb§fuild");
                 }
-            } else {
-                Bukkit.getServer().getConsoleSender().sendMessage(Main.iplayer);
+
+            } else if (sender instanceof ConsoleCommandSender) {
+                if (args.length == 0) {
+                    sender.sendMessage("§bBenutze: §f/§cb§fuild §a<Player>");
+                } else if (args.length == 1) {
+
+                    try {
+                        Player t = Bukkit.getServer().getPlayer(args[0]);
+                        if (PermissionsEx.getUser(t).inGroup("Owner") || PermissionsEx.getUser(t).inGroup("Vice") || PermissionsEx.getUser(t).inGroup("Fellow")) {
+                            if (Main.allowedPlayer.contains(t)) {
+                                Main.allowedPlayer.remove(t);
+                                t.sendMessage(Main.pre + " §eDein Baumodus wurde §cdeaktiviert§e!");
+                                if (PermissionsEx.getUser(t).inGroup("Owner")) {
+                                    sender.sendMessage("§eDu hast den Baumodus von §4" + t.getName() + " §cdeaktiviert§e!");
+                                } else if (PermissionsEx.getUser(t).inGroup("Vice")) {
+                                    sender.sendMessage("§eDu hast den Baumodus von §c" + t.getName() + " §cdeaktiviert§e!");
+                                } else if (PermissionsEx.getUser(t).inGroup("Fellow")) {
+                                    sender.sendMessage("§eDu hast den Baumodus von §5" + t.getName() + " §cdeaktiviert§e!");
+                                }
+                            } else {
+                                Main.allowedPlayer.add(t);
+                                t.sendMessage(Main.pre + " §eDein Baumodus wurde §aaktiviert§e!");
+                                if (PermissionsEx.getUser(t).inGroup("Owner")) {
+                                    sender.sendMessage("§eDu hast den Baumodus von §4" + t.getName() + " §aaktiviert§e!");
+                                } else if (PermissionsEx.getUser(t).inGroup("Vice")) {
+                                    sender.sendMessage("§eDu hast den Baumodus von §c" + t.getName() + " §aaktiviert§e!");
+                                } else if (PermissionsEx.getUser(t).inGroup("Fellow")) {
+                                    sender.sendMessage("§eDu hast den Baumodus von §5" + t.getName() + " §aaktiviert§e!");
+                                }
+                            }
+                        } else {
+                            sender.sendMessage("§4Der Spieler darf nicht in den Baumodus gesetzt werden!");
+                        }
+                    } catch (NullPointerException e) {
+                        sender.sendMessage(Main.pre + " §cSpieler nicht gefunden!");
+                    }
+                } else if (args.length >= 2) {
+                    sender.sendMessage("§bBenutze: §f/§cb§fuild §a<Player>");
+                }
             }
         }
-
         return false;
     }
 }

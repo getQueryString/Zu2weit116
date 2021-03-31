@@ -12,9 +12,9 @@ import ru.tehkode.permissions.bukkit.PermissionsEx;
 
 public class CMD_HostAddress implements CommandExecutor {
     public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
-        if (sender instanceof Player) {
-            Player p = (Player) sender;
-            if (cmd.getName().equalsIgnoreCase("ip"))
+        if (cmd.getName().equalsIgnoreCase("ip")) {
+            if (sender instanceof Player) {
+                Player p = (Player) sender;
                 if (PermissionsEx.getUser(p).inGroup("Owner")) {
                     if (args.length == 0) {
                         if (p.getAddress().getAddress().getHostAddress().equalsIgnoreCase("127.0.0.1")) {
@@ -60,28 +60,29 @@ public class CMD_HostAddress implements CommandExecutor {
                 } else {
                     p.sendMessage(Main.noperm);
                 }
-        } else if (cmd.getName().equalsIgnoreCase("ip")) {
-            if (args.length == 0)
-                Bukkit.getConsoleSender().sendMessage("§bBenutze: §f/ip §a<Player>");
-            if (args.length == 1) {
-                try {
-                    Player t = Bukkit.getServer().getPlayer(args[0]);
-                    if (t.getAddress().getAddress().getHostAddress().equalsIgnoreCase("127.0.0.1")) {
-                        Bukkit.getConsoleSender().sendMessage(Main.pre + " §a" + t.getName()
-                                + " §aist local angemeldet: §e" + t.getAddress().getAddress().getHostAddress());
-                    } else if (t.getAddress().getAddress().getHostAddress().startsWith("192.168")) {
-                        Bukkit.getConsoleSender()
-                                .sendMessage(Main.pre + " §a" + t.getName() + " §aist im selben Netzwerk angemeldet: §e"
-                                        + t.getAddress().getAddress().getHostAddress());
-                    } else {
-                        Bukkit.getConsoleSender().sendMessage(Main.pre + " §a" + t.getName() + "'s IP-Adresse: §e"
-                                + t.getAddress().getAddress().getHostAddress());
+            } else {
+                if (args.length == 0)
+                    Bukkit.getConsoleSender().sendMessage("§bBenutze: §f/ip §a<Player>");
+                if (args.length == 1) {
+                    try {
+                        Player t = Bukkit.getServer().getPlayer(args[0]);
+                        if (t.getAddress().getAddress().getHostAddress().equalsIgnoreCase("127.0.0.1")) {
+                            Bukkit.getConsoleSender().sendMessage(Main.pre + " §a" + t.getName()
+                                    + " §aist local angemeldet: §e" + t.getAddress().getAddress().getHostAddress());
+                        } else if (t.getAddress().getAddress().getHostAddress().startsWith("192.168")) {
+                            Bukkit.getConsoleSender()
+                                    .sendMessage(Main.pre + " §a" + t.getName() + " §aist im selben Netzwerk angemeldet: §e"
+                                            + t.getAddress().getAddress().getHostAddress());
+                        } else {
+                            Bukkit.getConsoleSender().sendMessage(Main.pre + " §a" + t.getName() + "'s IP-Adresse: §e"
+                                    + t.getAddress().getAddress().getHostAddress());
+                        }
+                    } catch (NullPointerException e) {
+                        Bukkit.getConsoleSender().sendMessage(Main.pre + " §cSpieler nicht gefunden!");
                     }
-                } catch (NullPointerException e) {
-                    Bukkit.getConsoleSender().sendMessage(Main.pre + " §cSpieler nicht gefunden!");
+                } else if (args.length >= 2) {
+                    Bukkit.getConsoleSender().sendMessage("§bBenutze: §f/ip §a<Player>");
                 }
-            } else if (args.length >= 2) {
-                Bukkit.getConsoleSender().sendMessage("§bBenutze: §f/ip §a<Player>");
             }
         }
         return false;

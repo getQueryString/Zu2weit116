@@ -20,16 +20,16 @@ public class CMD_Stop implements CommandExecutor {
         if (sender instanceof ConsoleCommandSender) {
             if (cmd.getName().equalsIgnoreCase("stop")) {
                 new BukkitRunnable() {
-                    int count = 3;
+                    //int count = 3;
 
                     public void run() {
-                        if (count >= 1) {
-                            for (Player all : Bukkit.getOnlinePlayers()) {
-                                Bukkit.broadcastMessage(
-                                        "§8| §4Server§f-§4shutdown in§8: §e" + count + " Sekunde(n) §f| §cBitte nicht verlassen!");
-                                all.playSound(all.getLocation(), Sound.BLOCK_ANVIL_LAND, 1.0F, 50.0F);
-                                count--;
-                            }
+                        //if (count >= 1) {
+                        for (Player all : Bukkit.getOnlinePlayers()) {
+                            Bukkit.broadcastMessage(
+                                    "§8| §4Server§f-§4shutdown in§8: §e + count +  Sekunde(n) §f| §cBitte nicht verlassen!");
+                            all.playSound(all.getLocation(), Sound.BLOCK_ANVIL_LAND, 1.0F, 50.0F);
+                            //count--;
+                            //}
                         }
                     }
                 }.runTaskTimer((Plugin) this, 0, 20);
