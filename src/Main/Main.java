@@ -228,27 +228,37 @@ public class Main extends JavaPlugin implements Listener {
 
                     public void run() {
                         if (count > 1) {
-                            for (Player all : Bukkit.getOnlinePlayers()) {
-                                Bukkit.broadcastMessage(
-                                        "§8| §4Server§f-§4shutdown in§8: §e" + count + " Sekunden §f| §cBitte nicht verlassen!");
-                                all.playSound(all.getLocation(), Sound.BLOCK_ANVIL_LAND, 1.0F, 50.0F);
-                                count--;
+                            if (Bukkit.getOnlinePlayers().size() >= 1) {
+                                for (Player all : Bukkit.getOnlinePlayers()) {
+                                    Bukkit.broadcastMessage(
+                                            "§8| §4Server§f-§4shutdown in§8: §e" + count + " Sekunden");
+                                    all.playSound(all.getLocation(), Sound.BLOCK_ANVIL_LAND, 1.0F, 50.0F);
+
+                                }
+                            } else if (Bukkit.getOnlinePlayers().size() == 0) {
+                                Bukkit.getConsoleSender().sendMessage("§8| §4Server§f-§4shutdown in§8: §e" + count + " Sekunden");
                             }
+                            count--;
                         } else if (count == 1) {
-                            for (Player all : Bukkit.getOnlinePlayers()) {
-                                Bukkit.broadcastMessage(
-                                        "§8| §4Server§f-§4shutdown in§8: §e" + count + " Sekunde §f| §cBitte nicht verlassen!");
-                                all.playSound(all.getLocation(), Sound.BLOCK_ANVIL_LAND, 1.0F, 50.0F);
-                                count--;
+                            if (Bukkit.getOnlinePlayers().size() >= 1) {
+                                for (Player all : Bukkit.getOnlinePlayers()) {
+                                    Bukkit.broadcastMessage(
+                                            "§8| §4Server§f-§4shutdown in§8: §e" + count + " Sekunde");
+                                    all.playSound(all.getLocation(), Sound.BLOCK_ANVIL_LAND, 1.0F, 50.0F);
+
+                                }
+                            } else if (Bukkit.getOnlinePlayers().size() == 0) {
+                                Bukkit.getConsoleSender().sendMessage("§8| §4Server§f-§4shutdown in§8: §e" + count + " Sekunde");
                             }
+                            count--;
                         } else if (count == 0) {
-                            sender.sendMessage("Bukkit.shutdown();");
+                            Bukkit.shutdown();
                             count--;
                         }
                     }
-                }.runTaskTimer((Plugin) this, 0, 2);
+                }.runTaskTimer((Plugin) this, 0, 20);
             }
-        } else if (PermissionsEx.getUser((Player) sender).inGroup("Owner") || PermissionsEx.getUser((Player) sender).inGroup("Vice")) {
+        } else if (PermissionsEx.getUser((Player) sender).inGroup("Owner")) {
             Bukkit.getConsoleSender().sendMessage("§4! §e" + sender.getName() + " tried to stop the server");
             sender.sendMessage("§7| §4Only for the §bConsoleCommandSender");
         } else {

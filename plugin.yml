@@ -4,7 +4,8 @@ version: 2.0.24
 api-version: 1.16
 description: Copyright  2020
 website: https://www.youtube.com/c/mrdudecrafthd
-depend: [PermissionsEx, Playtimes]
+depend: [PermissionsEx]
+softdepend: [Playtimes]
 prefix: Zu2weit
 main: Main.Main
 commands:

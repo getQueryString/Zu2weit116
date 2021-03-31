@@ -52,8 +52,15 @@ public class AntiBuild implements Listener, CommandExecutor {
                     } else {
                         p.sendMessage(Main.pre + " §4Nicht genug Spieler!");
                     }
-                } else if (args.length >= 1) {
-                    sender.sendMessage("§bBenutze: §f/§cb§fuild");
+                } else if (args.length == 1) {
+
+                    if (PermissionsEx.getUser(p).inGroup("Owner")) {
+                        p.sendMessage("§7| §4Only for the §bConsoleCommandSender");
+                    } else {
+                        p.sendMessage("§bBenutze: §f/§cb§fuild");
+                    }
+                } else if (args.length >= 2) {
+                    p.sendMessage("§bBenutze: §f/§cb§fuild");
                 }
 
             } else if (sender instanceof ConsoleCommandSender) {
@@ -86,7 +93,7 @@ public class AntiBuild implements Listener, CommandExecutor {
                                 }
                             }
                         } else {
-                            sender.sendMessage("§4Der Spieler darf nicht in den Baumodus gesetzt werden!");
+                            sender.sendMessage("§4Dieser Spieler darf nicht in den Baumodus gesetzt werden!");
                         }
                     } catch (NullPointerException e) {
                         sender.sendMessage(Main.pre + " §cSpieler nicht gefunden!");

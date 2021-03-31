@@ -20,8 +20,13 @@ public class CMD_ClearChat implements Listener, CommandExecutor {
                     for (Player all : Bukkit.getOnlinePlayers())
                         all.sendMessage("");
                 }
-                Bukkit.broadcastMessage(
-                        String.valueOf(Main.pre) + " §7Der Chat wurde von §f§l" + p.getName() + " §7geleert.");
+                if (PermissionsEx.getUser(p).inGroup("Owner")) {
+                    Bukkit.broadcastMessage(
+                            Main.pre + " §7Der Chat wurde von §4§l" + p.getName() + " §7geleert.");
+                } else {
+                    Bukkit.broadcastMessage(
+                            Main.pre + " §7Der Chat wurde von §c" + p.getName() + " §7geleert.");
+                }
                 return true;
             }
             p.sendMessage(Main.noperm);
@@ -30,7 +35,7 @@ public class CMD_ClearChat implements Listener, CommandExecutor {
                 for (Player all : Bukkit.getOnlinePlayers())
                     all.sendMessage("");
             }
-            Bukkit.broadcastMessage(String.valueOf(Main.pre) + " §7Der Chat wurde von §cConsole §7geleert.");
+            Bukkit.broadcastMessage(Main.pre + " §7Der Chat wurde von §bConsole §7geleert.");
         }
         return false;
     }
