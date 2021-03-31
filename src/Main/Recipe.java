@@ -24,8 +24,6 @@ public class Recipe {
         lore.add("§czu schmieden. Doch nach der Reparatur wurde das");
         lore.add("§cSchwert §c§lunzersörbar§c.");
         ItemStack item = new ItemStack(Material.DIAMOND_SWORD);
-        ItemModifier iteM = new ItemModifier(item);
-        item = iteM.modify().HideFlags().build();
         ItemMeta meta = item.getItemMeta();
         meta.setDisplayName("Schwert von König KingKong");
         meta.setLore(lore);
