@@ -11,6 +11,7 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.command.ConsoleCommandSender;
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.Plugin;
+import org.bukkit.scheduler.BukkitRunnable;
 import ru.tehkode.permissions.bukkit.PermissionsEx;
 
 public class CMD_Stop implements CommandExecutor {
@@ -18,7 +19,7 @@ public class CMD_Stop implements CommandExecutor {
     public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
         if (sender instanceof ConsoleCommandSender) {
             if (cmd.getName().equalsIgnoreCase("stop")) {
-                Bukkit.getServer().getScheduler().scheduleAsyncRepeatingTask((Plugin) this, new Runnable() {
+                new BukkitRunnable() {
                     int count = 3;
 
                     public void run() {
@@ -31,7 +32,7 @@ public class CMD_Stop implements CommandExecutor {
                             }
                         }
                     }
-                }, 0, 20);
+                }.runTaskTimer((Plugin) this, 0, 20);
                 sender.sendMessage("Bukkit.shutdown();");
             }
         } else if (PermissionsEx.getUser((Player) sender).inGroup("Owner") || PermissionsEx.getUser((Player) sender).inGroup("Vice")) {

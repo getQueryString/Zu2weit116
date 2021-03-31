@@ -48,7 +48,6 @@ public class Main extends JavaPlugin implements Listener {
     public static String world_the_end = "world_the_end";
 
     public void onEnable() {
-        Bukkit.shutdown();
         plugin = this;
         Recipe.Recipe();
         instance = this;
