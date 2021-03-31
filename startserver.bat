@@ -1,12 +1,12 @@
 @echo off
 chcp 65001>nul
-"C:\Program Files (x86)\Minecraft Launcher\runtime\jre-x64\bin\java.exe" -Xms512M -Xmx2560M -jar paper_server_1.16.4-320.jar nogui
+"C:\Program Files (x86)\Minecraft Launcher\runtime\jre-x64\bin\java.exe" -Xms512M -Xmx2560M -jar paper_server-1.16.5-571.jar nogui
 cls
 color 4
 echo.
 echo.
-echo Die Eingabeaufforderung wird automatisch geschlossen, nachdem ein Backup der Weltdateien erstellt wurde
-timeout /t 2 /nobreak >nul
+echo Die Eingabeaufforderung wird automatisch geschlossen, nachdem (k)ein Backup der Weltdateien erstellt wurde
+timeout /t 1 /nobreak >nul
 
 :question
 echo Soll ein Backup erstellt werden? (y / n)
