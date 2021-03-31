@@ -1,4 +1,4 @@
-@echo off
+@echo offd
 chcp 65001>nul
 "C:\Program Files (x86)\Minecraft Launcher\runtime\jre-x64\bin\java.exe" -Xms512M -Xmx2560M -jar paper_server-1.16.5-571.jar nogui
 cls
