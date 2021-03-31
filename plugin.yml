@@ -35,6 +35,7 @@ commands:
     aliases:
       - sl
 
+  rl:
   stop:
   loc:
   ip:

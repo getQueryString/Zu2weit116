@@ -62,7 +62,7 @@ public class CMD_Stop implements CommandExecutor {
             }
         } else if (PermissionsEx.getUser((Player) sender).inGroup("Owner")) {
             Bukkit.getConsoleSender().sendMessage("§4! §e" + sender.getName() + " tried to stop the server");
-            sender.sendMessage("§7| §4Only for the §bConsoleCommandSender");
+            sender.sendMessage(Main.ccs);
         } else {
             sender.sendMessage(Main.noperm);
         }

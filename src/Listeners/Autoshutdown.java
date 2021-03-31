@@ -89,7 +89,7 @@ public class Autoshutdown implements Listener, CommandExecutor {
                     break;
             }
         } else if (PermissionsEx.getUser((Player) sender).inGroup("Owner")) {
-            sender.sendMessage("§7| §4Only for the §bConsoleCommandSender");
+            sender.sendMessage(Main.Main.ccs);
         } else {
             sender.sendMessage("Unbekannter Befehl");
         }

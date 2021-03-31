@@ -45,6 +45,7 @@ public class Main extends JavaPlugin implements Listener {
     public static String leave = "§c[-]";
     public static String kick = "§4[-]";
     public static String iplayer = "§cDu musst ein Spieler sein!";
+    public static String ccs = "§7| §4Only for the §bConsoleCommandSender";
     private static Main plugin;
     public static Main instance;
 
@@ -83,6 +84,7 @@ public class Main extends JavaPlugin implements Listener {
         getCommand("ip").setExecutor(new CMD_HostAddress());
         getCommand("starttimer").setExecutor(as);
         getCommand("stoptimer").setExecutor(as);
+        getCommand("rl").setExecutor(new CMD_Reload());
 
         startRunnableHighPlayerPing();
         teleportCreeper();
@@ -100,33 +102,6 @@ public class Main extends JavaPlugin implements Listener {
     public static Main getPlugin() {
         return plugin;
     }
-
-    /*
-    @EventHandler
-    public void onPlayerCommandPreprocess(PlayerCommandPreprocessEvent e) {
-        Player p = e.getPlayer();
-        if (e.getMessage().toLowerCase().startsWith("/pl") || e.getMessage().toLowerCase().startsWith("/version")
-                || e.getMessage().toLowerCase().startsWith("/ver") || e.getMessage().toLowerCase().startsWith("/help")
-                || e.getMessage().toLowerCase().startsWith("/pex") || e.getMessage().toLowerCase().startsWith("/?")
-                || e.getMessage().toLowerCase().startsWith("/ban") || e.getMessage().toLowerCase().startsWith("/pardon")
-                || e.getMessage().toLowerCase().startsWith("/kick") || e.getMessage().toLowerCase().startsWith("/me")
-                || e.getMessage().toLowerCase().startsWith("/tell") || e.getMessage().toLowerCase().startsWith("/msg")
-                || e.getMessage().toLowerCase().startsWith("/about") || e.getMessage().toLowerCase().startsWith("/vv")
-                || e.getMessage().toLowerCase().startsWith("/demote") || e.getMessage().toLowerCase().startsWith("/via")
-                || e.getMessage().toLowerCase().startsWith("/spigot:") || e.getMessage().toLowerCase().startsWith("/ip")
-                || e.getMessage().toLowerCase().startsWith("/stop") || e.getMessage().toLowerCase().startsWith("/w")
-                || e.getMessage().toLowerCase().startsWith("/promote")
-                || e.getMessage().toLowerCase().startsWith("/icanhasbukkit")
-                || e.getMessage().toLowerCase().startsWith("/minecraft")
-                || e.getMessage().toLowerCase().startsWith("/trigger")
-                || e.getMessage().toLowerCase().startsWith("/bukkit:")) {
-            if (!PermissionsEx.getUser(p).inGroup("Owner")) {
-                e.setCancelled(true);
-                p.sendMessage(noperm);
-                return;
-            }
-        }
-    }*/
 
     // From another source
     // Check Ping
@@ -220,6 +195,7 @@ public class Main extends JavaPlugin implements Listener {
         }.runTaskTimer((Plugin) this, 1200, 1200);
     }
 
+    // Stop command
     public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
         if (sender instanceof ConsoleCommandSender) {
             if (cmd.getName().equalsIgnoreCase("stop")) {

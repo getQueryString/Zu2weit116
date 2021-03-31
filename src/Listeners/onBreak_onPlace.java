@@ -17,7 +17,7 @@ public class onBreak_onPlace implements Listener {
                 || p.getWorld().getName().equals("world_the_end")) {
             if (!Main.allowedPlayer.contains(p)) {
                 e.setCancelled(true);
-                p.sendMessage(Main.pre + "  §cProtected!");
+                p.sendMessage(Main.pre + " §cProtected!");
                 return;
             }
         } else {
@@ -32,7 +32,7 @@ public class onBreak_onPlace implements Listener {
                 || p.getWorld().getName().equals("world_the_end")) {
             if (!Main.allowedPlayer.contains(p)) {
                 e.setCancelled(true);
-                p.sendMessage(Main.pre + "  §cProtected!");
+                p.sendMessage(Main.pre + " §cProtected!");
                 return;
             }
         } else {
