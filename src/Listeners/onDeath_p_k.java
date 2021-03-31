@@ -2,7 +2,7 @@
 
 package Listeners;
 
-import Main.main;
+import Main.Main;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -16,7 +16,7 @@ public class onDeath_p_k implements Listener {
         Player k = e.getEntity().getKiller();
         if (k != null) {
             e.setDeathMessage(
-                    main.pre + " §e" + p.getName() + " §fwurde von §e" + k.getName() + " §fgetötet.");
+                    Main.pre + " §e" + p.getName() + " §fwurde von §e" + k.getName() + " §fgetötet.");
         }
     }
 }

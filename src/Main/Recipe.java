@@ -10,7 +10,7 @@ import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.ShapedRecipe;
 import org.bukkit.inventory.meta.ItemMeta;
 
-import static Main.main.lore;
+import static Main.Main.lore;
 
 public class Recipe {
 
@@ -39,7 +39,7 @@ public class Recipe {
         meta.addEnchant(Enchantment.ARROW_DAMAGE, -1, true);
         meta.setUnbreakable(true);
         item.setItemMeta(meta);
-        NamespacedKey key = new NamespacedKey(main.getPlugin(), "abcabc");
+        NamespacedKey key = new NamespacedKey(Main.getPlugin(), "abcabc");
         ShapedRecipe rc = new ShapedRecipe(key, item);
         rc.shape(new String[]{"DPL", "NEN", "LSB"});
         rc.setIngredient('E', Material.DRAGON_EGG);

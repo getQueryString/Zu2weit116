@@ -2,7 +2,7 @@
 
 package Listeners;
 
-import Main.main;
+import Main.Main;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -17,19 +17,19 @@ public class EVENT_PlayerJoin implements Listener {
         (new EpicScoreboard(pl)).sendToPlayer(pl);
         if (PermissionsEx.getUser(pl).inGroup("Owner")) {
             for (Player p : Bukkit.getOnlinePlayers())
-                ((EpicScoreboard) main.scoreboard.get(p.getUniqueId())).sb.getTeam("002owner").addEntry(pl.getName());
+                ((EpicScoreboard) Main.scoreboard.get(p.getUniqueId())).sb.getTeam("002owner").addEntry(pl.getName());
         } else if (pl.isOp()) {
             for (Player p : Bukkit.getOnlinePlayers())
-                ((EpicScoreboard) main.scoreboard.get(p.getUniqueId())).sb.getTeam("001op").addEntry(pl.getName());
+                ((EpicScoreboard) Main.scoreboard.get(p.getUniqueId())).sb.getTeam("001op").addEntry(pl.getName());
         } else if (PermissionsEx.getUser(pl).inGroup("Vice")) {
             for (Player p : Bukkit.getOnlinePlayers())
-                ((EpicScoreboard) main.scoreboard.get(p.getUniqueId())).sb.getTeam("003vice").addEntry(pl.getName());
+                ((EpicScoreboard) Main.scoreboard.get(p.getUniqueId())).sb.getTeam("003vice").addEntry(pl.getName());
         } else if (PermissionsEx.getUser(pl).inGroup("Fellow")) {
             for (Player p : Bukkit.getOnlinePlayers())
-                ((EpicScoreboard) main.scoreboard.get(p.getUniqueId())).sb.getTeam("004fellow").addEntry(pl.getName());
+                ((EpicScoreboard) Main.scoreboard.get(p.getUniqueId())).sb.getTeam("004fellow").addEntry(pl.getName());
         } else {
             for (Player p : Bukkit.getOnlinePlayers())
-                ((EpicScoreboard) main.scoreboard.get(p.getUniqueId())).sb.getTeam("005spieler").addEntry(pl.getName());
+                ((EpicScoreboard) Main.scoreboard.get(p.getUniqueId())).sb.getTeam("005spieler").addEntry(pl.getName());
         }
     }
 }

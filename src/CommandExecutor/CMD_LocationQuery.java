@@ -2,7 +2,7 @@
 
 package CommandExecutor;
 
-import Main.main;
+import Main.Main;
 import org.bukkit.Bukkit;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
@@ -52,16 +52,16 @@ public class CMD_LocationQuery implements CommandExecutor {
                             p.sendMessage("§f» §aportal, fortress");
                         } else if (args[0].equalsIgnoreCase("end") && args[1].equalsIgnoreCase("gateway")) {
                             p.sendMessage("§7[§5Endtransitportal§7]\n§5world_the_end§7» §fX:§71100 §fY:§761 §fZ:§71");
-                        } else if (args[0].equalsIgnoreCase("end") && args[1].equalsIgnoreCase("frei4")) {
-                            p.sendMessage("§5world_the_end§7» §fend,frei4");
-                        } else if (args[0].equalsIgnoreCase("end") && args[1].equalsIgnoreCase("list")) {
+                        } /*else if (args[0].equalsIgnoreCase("end") && args[1].equalsIgnoreCase("empty")) {
+                            p.sendMessage("§7[§5Empty§7]\n§5world_the_end§7» §fX:§7X §fY:§7Y §fZ:§7Z");
+                        }*/ else if (args[0].equalsIgnoreCase("end") && args[1].equalsIgnoreCase("list")) {
                             p.sendMessage("§7[§bListe von §5end§7]");
-                            p.sendMessage("§f» §agateway, frei4");
+                            p.sendMessage("§f» §agateway");
                         } else {
                             p.sendMessage("§cWelt oder Meta nicht gefunden");
                         }
                 } else {
-                    sender.sendMessage(main.noperm);
+                    sender.sendMessage(Main.noperm);
                 }
         } else if (cmd.getName().equalsIgnoreCase("loc")) {
             if (args.length == 1) {
@@ -100,11 +100,11 @@ public class CMD_LocationQuery implements CommandExecutor {
                     Bukkit.getConsoleSender().sendMessage("§f» §aportal, fortress");
                 } else if (args[0].equalsIgnoreCase("end") && args[1].equalsIgnoreCase("gateway")) {
                     Bukkit.getConsoleSender().sendMessage("§7[§5Endtransitportal§7]\n§5world_the_end§7» §fX:§71100 §fY:§761 §fZ:§71");
-                } else if (args[0].equalsIgnoreCase("end") && args[1].equalsIgnoreCase("frei4")) {
-                    Bukkit.getConsoleSender().sendMessage("§5world_the_end§7» end,frei4");
-                } else if (args[0].equalsIgnoreCase("end") && args[1].equalsIgnoreCase("list")) {
+                } /*else if (args[0].equalsIgnoreCase("end") && args[1].equalsIgnoreCase("empty")) {
+                    Bukkit.getConsoleSender().sendMessage("§7[§5Empty§7]\n§5world_the_end§7» §fX:§7X §fY:§7Y §fZ:§7Z");
+                }*/ else if (args[0].equalsIgnoreCase("end") && args[1].equalsIgnoreCase("list")) {
                     Bukkit.getConsoleSender().sendMessage("§7[§bListe von §5end§7]");
-                    Bukkit.getConsoleSender().sendMessage("§f» §agateway, frei4");
+                    Bukkit.getConsoleSender().sendMessage("§f» §agateway");
                 } else {
                     Bukkit.getConsoleSender().sendMessage("§cWelt oder Meta nicht gefunden");
                 }

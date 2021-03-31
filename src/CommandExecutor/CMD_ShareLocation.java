@@ -2,7 +2,7 @@
 
 package CommandExecutor;
 
-import Main.main;
+import Main.Main;
 import org.bukkit.Bukkit;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
@@ -68,10 +68,10 @@ public class CMD_ShareLocation implements CommandExecutor {
                                     + "§7» §fX:§7" + X + " §fY:§7" + Y + " §fZ:§7" + Z);
                         }
                 } else {
-                    p.sendMessage(main.noperm);
+                    p.sendMessage(Main.noperm);
                 }
         } else {
-            Bukkit.getConsoleSender().sendMessage(main.iplayer);
+            Bukkit.getConsoleSender().sendMessage(Main.iplayer);
         }
         return false;
     }

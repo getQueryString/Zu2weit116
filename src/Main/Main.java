@@ -13,19 +13,16 @@ import java.util.UUID;
 import org.bukkit.Bukkit;
 import org.bukkit.Sound;
 import org.bukkit.entity.Player;
-import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
-import org.bukkit.event.player.PlayerCommandPreprocessEvent;
 import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.plugin.Plugin;
 import org.bukkit.plugin.PluginManager;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.bukkit.scheduler.BukkitRunnable;
-import ru.tehkode.permissions.bukkit.PermissionsEx;
 
 import static org.bukkit.Bukkit.getConsoleSender;
 
-public class main extends JavaPlugin implements Listener {
+public class Main extends JavaPlugin implements Listener {
 
     // ArrayLists
     public static ArrayList<String> lore = new ArrayList<>();
@@ -44,13 +41,14 @@ public class main extends JavaPlugin implements Listener {
     public static String leave = "§c[-]";
     public static String kick = "§4[-]";
     public static String iplayer = "§cDu musst ein Spieler sein!";
-    private static main plugin;
-    public static main instance;
+    private static Main plugin;
+    public static Main instance;
     public static String world = "world";
     public static String world_nether = "world_nether";
     public static String world_the_end = "world_the_end";
 
     public void onEnable() {
+        Bukkit.shutdown();
         plugin = this;
         Recipe.Recipe();
         instance = this;
@@ -91,18 +89,20 @@ public class main extends JavaPlugin implements Listener {
         teleportCreeper();
 
         getConsoleSender().sendMessage("§aDas §3Zu2weit-Plugin §awurde erfolgreich aktiviert!");
-        Bukkit.getConsoleSender().sendMessage("§cThe server will shut down in 5 minutes because there are no players on the server");
+        if (Bukkit.getOnlinePlayers().size() == 0) {
+            Bukkit.getConsoleSender().sendMessage("§cThe server will shut down in 5 minutes because there are no players on the server");
+        }
     }
 
     public void onDisable() {
         getConsoleSender().sendMessage("§4Das §3Zu2weit-Plugin §4wurde erfolgreich deaktiviert!");
     }
 
-    public static main getPlugin() {
+    public static Main getPlugin() {
         return plugin;
     }
 
-
+    /*
     @EventHandler
     public void onPlayerCommandPreprocess(PlayerCommandPreprocessEvent e) {
         Player p = e.getPlayer();
@@ -121,16 +121,13 @@ public class main extends JavaPlugin implements Listener {
                 || e.getMessage().toLowerCase().startsWith("/minecraft")
                 || e.getMessage().toLowerCase().startsWith("/trigger")
                 || e.getMessage().toLowerCase().startsWith("/bukkit:")) {
-            if (PermissionsEx.getUser(p).inGroup("Owner")) {
-                p.sendMessage("");
-                p.sendMessage(" §f* This command is only available for §0§lOperator §f& §4§lOwner §f*");
+            if (!PermissionsEx.getUser(p).inGroup("Owner")) {
+                e.setCancelled(true);
+                p.sendMessage(noperm);
                 return;
             }
-            p.sendMessage(noperm);
-            e.setCancelled(true);
-            return;
         }
-    }
+    }*/
 
     // From another source
     // Check Ping
@@ -146,24 +143,24 @@ public class main extends JavaPlugin implements Listener {
                         ArrayList<Integer> lastPings = pingPlayers.get(p);
 
                         // Holt den letzen Ping, den der Spieler hatte
-                        int lastPing = lastPings.get(lastPings.size() - 1);
+                        int lastPing = lastPings.get(lastPings.size());
                         // Holt den derzeitigen Ping, den der Spieler hat
                         int currentPing = getPing(p);
 
                         // Wenn 15 Pings eingetragen sind
-                        if (lastPings.size() >= 14) {
-                            // Ob letzer & derzeitiger Ping >= 1300ms ist
-                            if (lastPing >= 1300 && currentPing >= 1300) {
+                        if (lastPings.size() >= 15) {
+                            // Ob letzer & derzeitiger Ping >= 800ms ist
+                            if (lastPing >= 800 && currentPing >= 800) {
                                 // Löscht den Spieler aus dem Zwischenspeicher
                                 pingPlayers.remove(p);
                                 p.kickPlayer("§cDein Ping war im vorgegebenen Zeitraum mit §e" + getPing(p) + "ms §czu hoch");
                                 continue;
                             }
                         }
-                        // Ob letzer Ping >= 1300ms war
-                        if (lastPing >= 1300) {
-                            // Ob derzeitiger Ping >= 1300ms ist
-                            if (currentPing >= 1300) {
+                        // Ob letzer Ping >= 800ms war
+                        if (lastPing >= 800) {
+                            // Ob derzeitiger Ping >= 800ms ist
+                            if (currentPing >= 800) {
                                 // Fügt den derzeitigen Ping zur Liste hinzu
                                 lastPings.add(currentPing);
 
@@ -179,13 +176,13 @@ public class main extends JavaPlugin implements Listener {
                         // Wenn nicht, wird der derzeitige Ping abgefragt
                         int currentPing = getPing(p);
 
-                        // Ob derzeitiger Ping >= 1300ms
-                        if (currentPing >= 1000) {
+                        // Ob derzeitiger Ping >= 500ms
+                        if (currentPing >= 500) {
                             p.playSound(p.getLocation(), Sound.BLOCK_NOTE_BLOCK_BASS, 1F, 1F);
                             p.playSound(p.getLocation(), Sound.BLOCK_NOTE_BLOCK_BELL, 1F, 1F);
                             p.sendMessage("§4§lACHTUNG: §4Hoher Ping!: §e" + getPing(p) + "ms.");
                             getConsoleSender().sendMessage("§f" + p.getName() + "'s §4current Ping: §e" + getPing(p) + "ms.");
-                        } else if (currentPing >= 1300) {
+                        } else if (currentPing >= 800) {
                             ArrayList<Integer> pings = new ArrayList<>();
 
                             // Wenn ja, wird der Spieler zum Zwischenspeicher hinzugefügt
@@ -196,13 +193,9 @@ public class main extends JavaPlugin implements Listener {
                 }
             }
 
-        }.runTaskTimer((Plugin) this, 0, 20);
+        }.runTaskTimer((Plugin) this, 0, 60);
     }
 
-    /**
-     * @param p
-     * @return player's ping
-     */
     private int getPing(Player p) {
         try {
             Object entityPlayer = p.getClass().getMethod("getHandle").invoke(p);

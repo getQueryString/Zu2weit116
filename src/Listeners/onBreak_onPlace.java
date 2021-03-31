@@ -2,7 +2,7 @@
 
 package Listeners;
 
-import Main.main;
+import Main.Main;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -15,9 +15,9 @@ public class onBreak_onPlace implements Listener {
         Player p = e.getPlayer();
         if (p.getWorld().getName().equals("world") || p.getWorld().getName().equals("world_nether")
                 || p.getWorld().getName().equals("world_the_end")) {
-            if (!main.allowedPlayer.contains(p)) {
+            if (!Main.allowedPlayer.contains(p)) {
                 e.setCancelled(true);
-                p.sendMessage(main.pre + "  §cProtected!");
+                p.sendMessage(Main.pre + "  §cProtected!");
                 return;
             }
         } else {
@@ -30,9 +30,9 @@ public class onBreak_onPlace implements Listener {
         Player p = e.getPlayer();
         if (p.getWorld().getName().equals("world") || p.getWorld().getName().equals("world_nether")
                 || p.getWorld().getName().equals("world_the_end")) {
-            if (!main.allowedPlayer.contains(p)) {
+            if (!Main.allowedPlayer.contains(p)) {
                 e.setCancelled(true);
-                p.sendMessage(main.pre + "  §cProtected!");
+                p.sendMessage(Main.pre + "  §cProtected!");
                 return;
             }
         } else {

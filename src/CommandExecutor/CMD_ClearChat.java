@@ -2,7 +2,7 @@
 
 package CommandExecutor;
 
-import Main.main;
+import Main.Main;
 import org.bukkit.Bukkit;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
@@ -21,16 +21,16 @@ public class CMD_ClearChat implements Listener, CommandExecutor {
                         all.sendMessage("");
                 }
                 Bukkit.broadcastMessage(
-                        String.valueOf(main.pre) + " §7Der Chat wurde von §f§l" + p.getName() + " §7geleert.");
+                        String.valueOf(Main.pre) + " §7Der Chat wurde von §f§l" + p.getName() + " §7geleert.");
                 return true;
             }
-            p.sendMessage(main.noperm);
+            p.sendMessage(Main.noperm);
         } else {
             for (int i = 0; i < 105; i++) {
                 for (Player all : Bukkit.getOnlinePlayers())
                     all.sendMessage("");
             }
-            Bukkit.broadcastMessage(String.valueOf(main.pre) + " §7Der Chat wurde von §cConsole §7geleert.");
+            Bukkit.broadcastMessage(String.valueOf(Main.pre) + " §7Der Chat wurde von §cConsole §7geleert.");
         }
         return false;
     }

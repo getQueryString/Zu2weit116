@@ -2,7 +2,7 @@
 
 package CommandExecutor;
 
-import Main.main;
+import Main.Main;
 import org.bukkit.Bukkit;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
@@ -22,7 +22,7 @@ public class CMD_Ping implements CommandExecutor {
                         || PermissionsEx.getUser(p).inGroup("Fellow")) {
                     if (args.length == 0) {
                         int ping = (((CraftPlayer) p).getHandle()).ping;
-                        p.sendMessage(main.pre + " §aDein Ping: §e" + ping + "ms.");
+                        p.sendMessage(Main.pre + " §aDein Ping: §e" + ping + "ms.");
                     } else if (args.length >= 2) {
                         p.sendMessage("§bBenutze: §f/§cp§fing §a<Player>");
                     }
@@ -31,15 +31,15 @@ public class CMD_Ping implements CommandExecutor {
                             Player t = Bukkit.getServer().getPlayer(args[0]);
                             int ping = (((CraftPlayer) t).getHandle()).ping;
                             if (t.getPlayer() == p.getPlayer()) {
-                                p.sendMessage(main.pre + " §aDein Ping: §e" + ping + "ms.");
+                                p.sendMessage(Main.pre + " §aDein Ping: §e" + ping + "ms.");
                             } else {
-                                p.sendMessage(main.pre + " §a" + t.getName() + "'s Ping: §e" + ping + "ms.");
+                                p.sendMessage(Main.pre + " §a" + t.getName() + "'s Ping: §e" + ping + "ms.");
                             }
                         } catch (NullPointerException e) {
-                            p.sendMessage(main.pre + " §cSpieler nicht gefunden!");
+                            p.sendMessage(Main.pre + " §cSpieler nicht gefunden!");
                         }
                 } else {
-                    p.sendMessage(main.noperm);
+                    p.sendMessage(Main.noperm);
                 }
         } else if (cmd.getName().equalsIgnoreCase("ping")) {
             if (args.length == 0)
@@ -49,9 +49,9 @@ public class CMD_Ping implements CommandExecutor {
                     Player t = Bukkit.getServer().getPlayer(args[0]);
                     int ping = (((CraftPlayer) t).getHandle()).ping;
                     Bukkit.getConsoleSender()
-                            .sendMessage(main.pre + " §a" + t.getName() + "'s Ping: §e" + ping + "ms.");
+                            .sendMessage(Main.pre + " §a" + t.getName() + "'s Ping: §e" + ping + "ms.");
                 } catch (NullPointerException e) {
-                    Bukkit.getConsoleSender().sendMessage(main.pre + " §cSpieler nicht gefunden!");
+                    Bukkit.getConsoleSender().sendMessage(Main.pre + " §cSpieler nicht gefunden!");
                 }
             } else if (args.length >= 2) {
                 Bukkit.getConsoleSender().sendMessage("§bBenutze: §f/§cp§fing §a<Player>");

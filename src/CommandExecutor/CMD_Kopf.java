@@ -2,7 +2,7 @@
 
 package CommandExecutor;
 
-import Main.main;
+import Main.Main;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.OfflinePlayer;
@@ -32,10 +32,10 @@ public class CMD_Kopf implements CommandExecutor {
                 p.sendMessage("§bBenutze: §f/kopf§7, §f/head§7, §f/skull §a<Kopfname>");
                 return true;
             }
-            p.sendMessage(main.noperm);
+            p.sendMessage(Main.noperm);
             return true;
         }
-        Bukkit.getConsoleSender().sendMessage(main.iplayer);
+        Bukkit.getConsoleSender().sendMessage(Main.iplayer);
         return false;
     }
 }

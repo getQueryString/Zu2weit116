@@ -2,7 +2,7 @@
 
 package Listeners;
 
-import Main.main;
+import Main.Main;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -15,7 +15,7 @@ public class PlayerInteract_EVENT implements Listener {
     public void Interact(PlayerInteractEvent e) {
         Player p = e.getPlayer();
         if ((p.getWorld().getName().equals("world") || p.getWorld().getName().equals("world_nether")
-                || p.getWorld().getName().equals("world_the_end")) && !main.allowedPlayer.contains(p)
+                || p.getWorld().getName().equals("world_the_end")) && !Main.allowedPlayer.contains(p)
                 && e.getAction() == Action.RIGHT_CLICK_BLOCK
                 && (e.getClickedBlock().getType() == Material.CHEST || e.getClickedBlock().getType() == Material.DROPPER
                 || e.getClickedBlock().getType() == Material.DISPENSER

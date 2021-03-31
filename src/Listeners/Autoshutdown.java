@@ -2,7 +2,6 @@
 
 package Listeners;
 
-import Main.main;
 import org.bukkit.Bukkit;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
@@ -58,7 +57,7 @@ public class Autoshutdown implements Listener, CommandExecutor {
 
     @EventHandler
     public void onPlayerJoin(PlayerJoinEvent e) {
-        if(timer != null) {
+        if (timer != null) {
             stopTimer();
             Bukkit.getConsoleSender().sendMessage("§cTimer stopped because the server is no longer empty");
         }
@@ -92,7 +91,7 @@ public class Autoshutdown implements Listener, CommandExecutor {
         } else if (PermissionsEx.getUser((Player) sender).inGroup("Owner")) {
             sender.sendMessage("§7| §4Only for the §bConsoleCommandSender");
         } else {
-            sender.sendMessage(main.noperm);
+            sender.sendMessage("Unbekannter Befehl");
         }
 
         return false;

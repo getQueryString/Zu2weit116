@@ -2,7 +2,7 @@
 
 package CommandExecutor;
 
-import Main.main;
+import Main.Main;
 import org.bukkit.Bukkit;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
@@ -20,19 +20,19 @@ public class Build_Exception implements Listener, CommandExecutor {
                     if (args.length == 0) {
                         if (p.getWorld().getName().equals("world") || p.getWorld().getName().equals("world_nether")
                                 || p.getWorld().getName().equals("world_the_end")) {
-                            if (main.allowedPlayer.contains(p)) {
-                                main.allowedPlayer.remove(p);
-                                p.sendMessage(main.pre + " §eBaumodus §cdeaktiviert§e!");
+                            if (Main.allowedPlayer.contains(p)) {
+                                Main.allowedPlayer.remove(p);
+                                p.sendMessage(Main.pre + " §eBaumodus §cdeaktiviert§e!");
                                 Bukkit.getConsoleSender().sendMessage(
                                         "§4" + p.getPlayer().getName() + " §ehat den Baumodus §cdeaktiviert§e!");
                             } else {
-                                main.allowedPlayer.add(p);
-                                p.sendMessage(main.pre + " §eException build mode §aenabled§e!");
+                                Main.allowedPlayer.add(p);
+                                p.sendMessage(Main.pre + " §eException build mode §aenabled§e!");
                                 Bukkit.getConsoleSender().sendMessage(
                                         "§4" + p.getPlayer().getName() + " §aenabled §ethe exception build mode!");
                             }
                         } else {
-                            p.sendMessage(main.pre + " §cDieser Command ist auf dieser Welt nicht gestattet!");
+                            p.sendMessage(Main.pre + " §cDieser Command ist auf dieser Welt nicht gestattet!");
                             return true;
                         }
                     } else if (args.length >= 1) {
@@ -42,7 +42,7 @@ public class Build_Exception implements Listener, CommandExecutor {
                     p.sendMessage("§fUnbekannter Befehl");
                 }
             } else {
-                Bukkit.getServer().getConsoleSender().sendMessage(main.iplayer);
+                Bukkit.getServer().getConsoleSender().sendMessage(Main.iplayer);
             }
         return false;
     }

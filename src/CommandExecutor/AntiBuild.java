@@ -2,7 +2,7 @@
 
 package CommandExecutor;
 
-import Main.main;
+import Main.Main;
 import org.bukkit.Bukkit;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
@@ -21,16 +21,16 @@ public class AntiBuild implements Listener, CommandExecutor {
                 Player p = (Player) sender;
                 int onlinePlayers = Bukkit.getOnlinePlayers().size();
                 if (!PermissionsEx.getUser(p).inGroup("Owner") && !PermissionsEx.getUser(p).inGroup("Vice") && !PermissionsEx.getUser(p).inGroup("Fellow")) {
-                    sender.sendMessage(main.noperm);
+                    sender.sendMessage(Main.noperm);
                 } else if (args.length == 0) {
                     if (!p.getWorld().getName().equals("world") && !p.getWorld().getName().equals("world_nether") && !p.getWorld().getName().equals("world_the_end")) {
-                        p.sendMessage(main.pre + " §cDieser Command ist auf dieser Welt nicht gestattet!");
+                        p.sendMessage(Main.pre + " §cDieser Command ist auf dieser Welt nicht gestattet!");
                         return true;
                     }
 
-                    if (main.allowedPlayer.contains(p)) {
-                        main.allowedPlayer.remove(p);
-                        p.sendMessage(main.pre + " §eBaumodus §cdeaktiviert§e!");
+                    if (Main.allowedPlayer.contains(p)) {
+                        Main.allowedPlayer.remove(p);
+                        p.sendMessage(Main.pre + " §eBaumodus §cdeaktiviert§e!");
                         if (PermissionsEx.getUser(p).inGroup("Owner")) {
                             Bukkit.getConsoleSender().sendMessage("§4" + p.getPlayer().getName() + " §ehat den Baumodus §cdeaktiviert§e!");
                         } else if (PermissionsEx.getUser(p).inGroup("Vice")) {
@@ -39,8 +39,8 @@ public class AntiBuild implements Listener, CommandExecutor {
                             Bukkit.getConsoleSender().sendMessage("§5" + p.getPlayer().getName() + " §ehat den Baumodus §cdeaktiviert§e!");
                         }
                     } else if (onlinePlayers > 1) {
-                        main.allowedPlayer.add(p);
-                        p.sendMessage(main.pre + " §eBaumodus §aaktiviert§e!");
+                        Main.allowedPlayer.add(p);
+                        p.sendMessage(Main.pre + " §eBaumodus §aaktiviert§e!");
                         if (PermissionsEx.getUser(p).inGroup("Owner")) {
                             Bukkit.getConsoleSender().sendMessage("§4" + p.getPlayer().getName() + " §ehat den Baumodus §aaktiviert§e!");
                         } else if (PermissionsEx.getUser(p).inGroup("Vice")) {
@@ -49,13 +49,13 @@ public class AntiBuild implements Listener, CommandExecutor {
                             Bukkit.getConsoleSender().sendMessage("§5" + p.getPlayer().getName() + " §ehat den Baumodus §aaktiviert§e!");
                         }
                     } else {
-                        p.sendMessage(main.pre + " §4Nicht genug Spieler!");
+                        p.sendMessage(Main.pre + " §4Nicht genug Spieler!");
                     }
                 } else if (args.length >= 1) {
                     sender.sendMessage("§bBenutze: §f/§cb§fuild");
                 }
             } else {
-                Bukkit.getServer().getConsoleSender().sendMessage(main.iplayer);
+                Bukkit.getServer().getConsoleSender().sendMessage(Main.iplayer);
             }
         }
 

@@ -2,7 +2,7 @@
 
 package Listeners;
 
-import Main.main;
+import Main.Main;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.scoreboard.Scoreboard;
@@ -46,6 +46,6 @@ public class EpicScoreboard {
             this.sb.getTeam("005spieler").addEntry(player.getName());
         }
         p.setScoreboard(this.sb);
-        main.scoreboard.put(p.getUniqueId(), this);
+        Main.scoreboard.put(p.getUniqueId(), this);
     }
 }
