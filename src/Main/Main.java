@@ -12,9 +12,6 @@ import java.util.UUID;
 
 import org.bukkit.Bukkit;
 import org.bukkit.Sound;
-import org.bukkit.command.Command;
-import org.bukkit.command.CommandSender;
-import org.bukkit.command.ConsoleCommandSender;
 import org.bukkit.entity.Player;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerJoinEvent;
@@ -22,7 +19,6 @@ import org.bukkit.plugin.Plugin;
 import org.bukkit.plugin.PluginManager;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.bukkit.scheduler.BukkitRunnable;
-import ru.tehkode.permissions.bukkit.PermissionsEx;
 
 import static org.bukkit.Bukkit.getConsoleSender;
 
@@ -77,7 +73,7 @@ public class Main extends JavaPlugin implements Listener {
         getCommand("kopf").setExecutor(new CMD_Kopf());
         getCommand("clearchat").setExecutor(new CMD_ClearChat());
         getCommand("build").setExecutor(new AntiBuild());
-        //getCommand("stop").setExecutor(new CMD_Stop());
+        getCommand("stop").setExecutor(new CMD_Stop());
         getCommand("lastfix").setExecutor(new CMD_LastFix());
         getCommand("sharelocation").setExecutor(new CMD_ShareLocation());
         getCommand("loc").setExecutor(new CMD_LocationQuery());
@@ -193,53 +189,5 @@ public class Main extends JavaPlugin implements Listener {
                 }
             }
         }.runTaskTimer((Plugin) this, 1200, 1200);
-    }
-
-    // Stop command
-    public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
-        if (sender instanceof ConsoleCommandSender) {
-            if (cmd.getName().equalsIgnoreCase("stop")) {
-                new BukkitRunnable() {
-                    int count = 3;
-
-                    public void run() {
-                        if (count > 1) {
-                            if (Bukkit.getOnlinePlayers().size() >= 1) {
-                                for (Player all : Bukkit.getOnlinePlayers()) {
-                                    Bukkit.broadcastMessage(
-                                            "§8| §4Server§f-§4shutdown in§8: §e" + count + " Sekunden");
-                                    all.playSound(all.getLocation(), Sound.BLOCK_ANVIL_LAND, 1.0F, 50.0F);
-
-                                }
-                            } else if (Bukkit.getOnlinePlayers().size() == 0) {
-                                Bukkit.getConsoleSender().sendMessage("§8| §4Server§f-§4shutdown in§8: §e" + count + " Sekunden");
-                            }
-                            count--;
-                        } else if (count == 1) {
-                            if (Bukkit.getOnlinePlayers().size() >= 1) {
-                                for (Player all : Bukkit.getOnlinePlayers()) {
-                                    Bukkit.broadcastMessage(
-                                            "§8| §4Server§f-§4shutdown in§8: §e" + count + " Sekunde");
-                                    all.playSound(all.getLocation(), Sound.BLOCK_ANVIL_LAND, 1.0F, 50.0F);
-
-                                }
-                            } else if (Bukkit.getOnlinePlayers().size() == 0) {
-                                Bukkit.getConsoleSender().sendMessage("§8| §4Server§f-§4shutdown in§8: §e" + count + " Sekunde");
-                            }
-                            count--;
-                        } else if (count == 0) {
-                            Bukkit.shutdown();
-                            count--;
-                        }
-                    }
-                }.runTaskTimer((Plugin) this, 0, 20);
-            }
-        } else if (PermissionsEx.getUser((Player) sender).inGroup("Owner")) {
-            Bukkit.getConsoleSender().sendMessage("§4! §e" + sender.getName() + " tried to stop the server");
-            sender.sendMessage("§7| §4Only for the §bConsoleCommandSender");
-        } else {
-            sender.sendMessage(Main.noperm);
-        }
-        return false;
     }
 }

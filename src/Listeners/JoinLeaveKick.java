@@ -18,27 +18,17 @@ public class JoinLeaveKick implements Listener {
         Player p = e.getPlayer();
         if (PermissionsEx.getUser(p).inGroup("Owner")) {
             p.sendMessage("");
-            p.sendMessage("§cBitte warte nach dem Joinen und Respawnen etwas, bevor du die Welt erkundest!");
-            p.sendMessage("");
             e.setJoinMessage(Main.join + " §4§l" + p.getName() + " §6ist dem Spiel beigetreten.");
         } else if (p.isOp()) {
-            p.sendMessage("");
-            p.sendMessage("§cBitte warte nach dem Joinen und Respawnen etwas, bevor du die Welt erkundest!");
             p.sendMessage("");
             e.setJoinMessage(Main.join + " §f§l" + p.getName() + " §6ist dem Spiel beigetreten.");
         } else if (PermissionsEx.getUser(p).inGroup("Vice")) {
             p.sendMessage("");
-            p.sendMessage("§cBitte warte nach dem Joinen und Respawnen etwas, bevor du die Welt erkundest!");
-            p.sendMessage("");
             e.setJoinMessage(Main.join + " §c" + p.getName() + " §6ist dem Spiel beigetreten.");
         } else if (PermissionsEx.getUser(p).inGroup("Fellow")) {
             p.sendMessage("");
-            p.sendMessage("§cBitte warte nach dem Joinen und Respawnen etwas, bevor du die Welt erkundest!");
-            p.sendMessage("");
             e.setJoinMessage(Main.join + " §5" + p.getName() + " §6ist dem Spiel beigetreten.");
         } else {
-            p.sendMessage("");
-            p.sendMessage("§cBitte warte nach dem Joinen und Respawnen etwas, bevor du die Welt erkundest!");
             p.sendMessage("");
             e.setJoinMessage(Main.join + " §8" + p.getName() + " §6ist dem Spiel beigetreten.");
         }

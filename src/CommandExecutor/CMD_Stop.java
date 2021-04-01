@@ -10,15 +10,14 @@ import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.command.ConsoleCommandSender;
 import org.bukkit.entity.Player;
-import org.bukkit.plugin.Plugin;
 import org.bukkit.scheduler.BukkitRunnable;
 import ru.tehkode.permissions.bukkit.PermissionsEx;
 
 public class CMD_Stop implements CommandExecutor {
 
-    Main plugin;
+    private Main plugin;
 
-    public void Main() {
+    public CMD_Stop() {
         this.plugin = Main.getPlugin(Main.class);
     }
 
@@ -62,7 +61,7 @@ public class CMD_Stop implements CommandExecutor {
             }
         } else if (PermissionsEx.getUser((Player) sender).inGroup("Owner")) {
             Bukkit.getConsoleSender().sendMessage("§4! §e" + sender.getName() + " tried to stop the server");
-            sender.sendMessage(Main.ccs);
+            sender.sendMessage("§7| §4Only for the §bConsoleCommandSender");
         } else {
             sender.sendMessage(Main.noperm);
         }
