@@ -12,7 +12,6 @@ import org.bukkit.entity.Player;
 import ru.tehkode.permissions.bukkit.PermissionsEx;
 
 public class CMD_Ping implements CommandExecutor {
-    public static CMD_Ping instance;
 
     public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
         if (cmd.getName().equalsIgnoreCase("ping")) {

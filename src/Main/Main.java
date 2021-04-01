@@ -11,14 +11,11 @@ import java.util.Map;
 import java.util.UUID;
 
 import org.bukkit.Bukkit;
-import org.bukkit.Sound;
 import org.bukkit.entity.Player;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerJoinEvent;
-import org.bukkit.plugin.Plugin;
 import org.bukkit.plugin.PluginManager;
 import org.bukkit.plugin.java.JavaPlugin;
-import org.bukkit.scheduler.BukkitRunnable;
 
 import static org.bukkit.Bukkit.getConsoleSender;
 
@@ -30,7 +27,7 @@ public class Main extends JavaPlugin implements Listener {
 
     // HashMaps
     public static Map<UUID, EpicScoreboard> scoreboard = new HashMap<>();
-    private static HashMap<Player, ArrayList<Integer>> pingPlayers = new HashMap<>();
+    public static HashMap<Player, ArrayList<Integer>> pingPlayers = new HashMap<>();
 
     // Strings
     public static String noperm = "§7[§bZu2weit§7]  §4§lKeine Rechte!";
@@ -50,6 +47,8 @@ public class Main extends JavaPlugin implements Listener {
         Recipe.Recipe();
         instance = this;
         Autoshutdown as = new Autoshutdown(this);
+        CreeperListener cl = new CreeperListener(this);
+        CheckPing cp = new CheckPing(this);
 
         EVENT_PlayerJoin join = new EVENT_PlayerJoin();
         for (Player pl : Bukkit.getOnlinePlayers())
@@ -69,6 +68,8 @@ public class Main extends JavaPlugin implements Listener {
         pm.registerEvents(new Whitelist_PlayerLogin(), this);
         pm.registerEvents(new BannedTitle(), this);
         pm.registerEvents(as, this);
+        pm.registerEvents(cl, this);
+        pm.registerEvents(cp, this);
         getCommand("ping").setExecutor(new CMD_Ping());
         getCommand("kopf").setExecutor(new CMD_Kopf());
         getCommand("clearchat").setExecutor(new CMD_ClearChat());
@@ -82,9 +83,6 @@ public class Main extends JavaPlugin implements Listener {
         getCommand("stoptimer").setExecutor(as);
         getCommand("rl").setExecutor(new CMD_Reload());
 
-        startRunnableHighPlayerPing();
-        teleportCreeper();
-
         getConsoleSender().sendMessage("§aDas §3Zu2weit-Plugin §awurde erfolgreich aktiviert!");
         if (Bukkit.getOnlinePlayers().size() == 0) {
             Bukkit.getConsoleSender().sendMessage("§cThe server will shut down in 5 minutes because there are no players on the server");
@@ -97,97 +95,5 @@ public class Main extends JavaPlugin implements Listener {
 
     public static Main getPlugin() {
         return plugin;
-    }
-
-    // From another source
-    // Check Ping
-    private void startRunnableHighPlayerPing() {
-        new BukkitRunnable() {
-
-            @Override
-            public void run() {
-                for (Player p : Bukkit.getOnlinePlayers()) {
-                    // Wenn der Spieler in der letzen Abfrage über 1000ms hat
-                    if (pingPlayers.containsKey(p)) {
-                        // Holt die letzten Pings, die der Spieler hatte
-                        ArrayList<Integer> lastPings = pingPlayers.get(p);
-
-                        // Holt den letzen Ping, den der Spieler hatte
-                        int lastPing = lastPings.get(lastPings.size());
-                        // Holt den derzeitigen Ping, den der Spieler hat
-                        int currentPing = getPing(p);
-
-                        // Wenn 15 Pings eingetragen sind
-                        if (lastPings.size() >= 15) {
-                            // Ob letzer & derzeitiger Ping >= 800ms ist
-                            if (lastPing >= 800 && currentPing >= 800) {
-                                // Löscht den Spieler aus dem Zwischenspeicher
-                                pingPlayers.remove(p);
-                                p.kickPlayer("§cDein Ping war im vorgegebenen Zeitraum mit §e" + getPing(p) + "ms §czu hoch");
-                                continue;
-                            }
-                        }
-                        // Ob letzer Ping >= 800ms war
-                        if (lastPing >= 800) {
-                            // Ob derzeitiger Ping >= 800ms ist
-                            if (currentPing >= 800) {
-                                // Fügt den derzeitigen Ping zur Liste hinzu
-                                lastPings.add(currentPing);
-
-                                // Update für die HashMap
-                                pingPlayers.remove(p);
-                                pingPlayers.put(p, lastPings);
-                            } else {
-                                // Wenn nicht, wird der Spieler aus dem Zwischenspeicher gelöscht
-                                pingPlayers.remove(p);
-                            }
-                        }
-                    } else {
-                        // Wenn nicht, wird der derzeitige Ping abgefragt
-                        int currentPing = getPing(p);
-
-                        // Ob derzeitiger Ping >= 500ms
-                        if (currentPing >= 500) {
-                            p.playSound(p.getLocation(), Sound.BLOCK_NOTE_BLOCK_BASS, 1F, 1F);
-                            p.playSound(p.getLocation(), Sound.BLOCK_NOTE_BLOCK_BELL, 1F, 1F);
-                            p.sendMessage("§4§lACHTUNG: §4Hoher Ping!: §e" + getPing(p) + "ms.");
-                            getConsoleSender().sendMessage("§f" + p.getName() + "'s §4current Ping: §e" + getPing(p) + "ms.");
-                        } else if (currentPing >= 800) {
-                            ArrayList<Integer> pings = new ArrayList<>();
-
-                            // Wenn ja, wird der Spieler zum Zwischenspeicher hinzugefügt
-                            pings.add(currentPing);
-                            pingPlayers.put(p, pings);
-                        }
-                    }
-                }
-            }
-
-        }.runTaskTimer((Plugin) this, 0, 60);
-    }
-
-    private int getPing(Player p) {
-        try {
-            Object entityPlayer = p.getClass().getMethod("getHandle").invoke(p);
-            return (int) entityPlayer.getClass().getField("ping").get(entityPlayer);
-
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        return -1;
-    }
-
-    // teleport Creepers
-    private void teleportCreeper() {
-        new BukkitRunnable() {
-
-            @Override
-            public void run() {
-
-                if (Bukkit.getOnlinePlayers().size() >= 1) {
-                    getServer().dispatchCommand(getConsoleSender(), "tp @e[type=creeper] ~ -2 ~");
-                }
-            }
-        }.runTaskTimer((Plugin) this, 1200, 1200);
     }
 }
