@@ -17,9 +17,9 @@ public class CMD_Reload implements CommandExecutor {
             if (cmd.getName().equalsIgnoreCase("rl")) {
                 if (Bukkit.getOnlinePlayers().size() >= 1) {
                     for (Player all : Bukkit.getOnlinePlayers()) {
-                        sender.sendMessage(Main.Main.pre + " §cReloading...");
                         if (all.hasPermission("zz.see.reload")) {
-                            all.sendMessage(Main.Main.pre + " §cReloading...");
+                            Bukkit.broadcastMessage(Main.Main.pre + " §cReloading...");
+                            break;
                         }
                     }
                 } else if (Bukkit.getOnlinePlayers().size() == 0) {
@@ -29,9 +29,9 @@ public class CMD_Reload implements CommandExecutor {
                 if (Bukkit.getOnlinePlayers().size() >= 1) {
                     for (Player all : Bukkit.getOnlinePlayers()) {
                         if (all.hasPermission("zz.see.reload")) {
-                            all.sendMessage(Main.Main.pre + " §aReload complete.");
+                            Bukkit.broadcastMessage(Main.Main.pre + " §aReload complete.");
+                            break;
                         }
-                        sender.sendMessage(Main.Main.pre + " §aReload complete.");
                     }
                 } else if (Bukkit.getOnlinePlayers().size() == 0) {
                     sender.sendMessage(Main.Main.pre + " §aReload complete.");

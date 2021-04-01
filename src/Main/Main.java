@@ -1,4 +1,4 @@
-// Copyright© by Fin   Rares <3
+// Copyright© by Fin
 
 package Main;
 
@@ -61,7 +61,7 @@ public class Main extends JavaPlugin implements Listener {
         pm.registerEvents(new SignListener(), this);
         pm.registerEvents(new JoinLeaveKick(), this);
         pm.registerEvents(new onBreak_onPlace(), this);
-        pm.registerEvents(new onDeath_p_k(), this);
+        pm.registerEvents(new onDeath(), this);
         pm.registerEvents(new PlayerPickupItem(), this);
         pm.registerEvents(new onDrop_EVENT(), this);
         pm.registerEvents(new PlayerInteract_EVENT(), this);

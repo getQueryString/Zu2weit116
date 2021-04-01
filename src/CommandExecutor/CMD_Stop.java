@@ -34,6 +34,7 @@ public class CMD_Stop implements CommandExecutor {
                                     Bukkit.broadcastMessage(
                                             "§8| §4Server§f-§4shutdown in§8: §e" + count + " Sekunden");
                                     all.playSound(all.getLocation(), Sound.BLOCK_ANVIL_LAND, 1.0F, 50.0F);
+                                    break;
 
                                 }
                             } else if (Bukkit.getOnlinePlayers().size() == 0) {
@@ -46,6 +47,7 @@ public class CMD_Stop implements CommandExecutor {
                                     Bukkit.broadcastMessage(
                                             "§8| §4Server§f-§4shutdown in§8: §e" + count + " Sekunde");
                                     all.playSound(all.getLocation(), Sound.BLOCK_ANVIL_LAND, 1.0F, 50.0F);
+                                    break;
 
                                 }
                             } else if (Bukkit.getOnlinePlayers().size() == 0) {
