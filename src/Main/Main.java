@@ -60,7 +60,7 @@ public class Main extends JavaPlugin implements Listener {
         pm.registerEvents(new PlayerChatEvent(), this);
         pm.registerEvents(new SignListener(), this);
         pm.registerEvents(new JoinLeaveKick(), this);
-        pm.registerEvents(new onBreak_onPlace(), this);
+        pm.registerEvents(new AntiBuild_Interacts(), this);
         pm.registerEvents(new onDeath(), this);
         pm.registerEvents(new PlayerPickupItem(), this);
         pm.registerEvents(new onDrop_EVENT(), this);

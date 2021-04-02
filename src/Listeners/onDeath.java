@@ -3,7 +3,6 @@
 package Listeners;
 
 import Main.Main;
-import org.bukkit.Bukkit;
 import org.bukkit.entity.*;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -20,7 +19,7 @@ public class onDeath implements Listener {
         Player k = e.getEntity().getKiller();
         if (p instanceof Player) {
             if (p.getLastDamageCause().getCause() == EntityDamageEvent.DamageCause.FALL) {
-                p.sendMessage(Main.pre + " §e" + p.getName() + " §ffiel aus zu großer Höhe.");
+                e.setDeathMessage(Main.pre + " §e" + p.getName() + " §ffiel aus zu großer Höhe.");
             }
         }
         /*if (k != null) {
@@ -32,7 +31,7 @@ public class onDeath implements Listener {
         if (e.getEntity().getLastDamageCause() instanceof EntityDamageByEntityEvent) {
             EntityDamageByEntityEvent lastDamageCause = (EntityDamageByEntityEvent) e.getEntity().getLastDamageCause();
             Entity killer = lastDamageCause.getDamager();
-            if (killer instanceof Entity) {
+            if (killer instanceof Entity && !(killer instanceof Creeper)) {
                 e.setDeathMessage(
                         Main.pre + " §e" + p.getName() + " §fwurde von §e" + killer.getName() + " §ferschlagen.");
                 Arrow arrow = (Arrow) lastDamageCause.getDamager();
@@ -44,6 +43,9 @@ public class onDeath implements Listener {
                 } else if (arrow.getShooter() instanceof BlockProjectileSource) {
                     e.setDeathMessage(Main.pre + " §e" + p.getName() + " §fwurde von §ePfeil §ferschossen.");
                 }
+            } else if (killer instanceof Creeper) {
+                e.setDeathMessage(
+                        Main.pre + " §e" + p.getName() + " §fwurde von §e" + killer.getName() + " §fin die Luft gesprengt.");
             } else if (lastDamageCause.getDamager() instanceof Trident) {
                 Trident trident = (Trident) lastDamageCause.getDamager();
                 if (trident.getShooter() instanceof Drowned) {
@@ -52,7 +54,6 @@ public class onDeath implements Listener {
                     e.setDeathMessage(Main.pre + " §e" + p.getName() + " §fwurde von §e" + k.getName() + " durch einen §aDreizack §ferschossen.");
                 }
             }
-
         }
     }
 }
