@@ -12,8 +12,6 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.Listener;
 import ru.tehkode.permissions.bukkit.PermissionsEx;
 
-import java.io.Console;
-
 public class AntiBuild implements Listener, CommandExecutor {
 
     public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
@@ -39,7 +37,7 @@ public class AntiBuild implements Listener, CommandExecutor {
                         } else if (PermissionsEx.getUser(p).inGroup("Fellow")) {
                             Bukkit.getConsoleSender().sendMessage("§5" + p.getPlayer().getName() + " §ehat den Baumodus §cdeaktiviert§e!");
                         }
-                    } else if (onlinePlayers > 1) {
+                    } else if (onlinePlayers >= 1) {
                         Main.allowedPlayer.add(p);
                         p.sendMessage(Main.pre + " §eBaumodus §aaktiviert§e!");
                         if (PermissionsEx.getUser(p).inGroup("Owner")) {

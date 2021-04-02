@@ -4,11 +4,8 @@ package Listeners;
 
 import Main.Main;
 import org.bukkit.Bukkit;
-import org.bukkit.entity.Creeper;
-import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
-import org.bukkit.event.entity.CreeperPowerEvent;
 import org.bukkit.event.entity.EntityExplodeEvent;
 import org.bukkit.plugin.Plugin;
 import org.bukkit.scheduler.BukkitRunnable;
@@ -28,17 +25,9 @@ public class CreeperListener implements Listener {
 
     @EventHandler
     public void onEntityExplode(EntityExplodeEvent e) {
-        if (!Main.allowedPlayer.contains(e.getEntity())) {
-            if (e.getEntity() instanceof Creeper) {
-                float eP = 0F;
-                e.setCancelled(true);
-                e.getLocation().getWorld().createExplosion(e.getLocation(), eP);
-            } else {
-                float eP = 1.5F;
-                e.setCancelled(true);
-                e.getLocation().getWorld().createExplosion(e.getLocation(), eP);
-            }
-        }
+        float eP = 1.5F;
+        e.setCancelled(true);
+        e.getLocation().getWorld().createExplosion(e.getLocation(), eP);
     }
 
     public void teleportCreeper() {
