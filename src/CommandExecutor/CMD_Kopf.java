@@ -22,7 +22,7 @@ public class CMD_Kopf implements CommandExecutor {
                 if (args.length == 1) {
                     ItemStack is = new ItemStack(Material.PLAYER_HEAD, 1);
                     SkullMeta im = (SkullMeta) is.getItemMeta();
-                    im.setOwningPlayer((OfflinePlayer) p.getPlayer());
+                    im.setOwningPlayer(p.getPlayer());
                     im.setDisplayName("§c§n" + args[0]);
                     is.setItemMeta(im);
                     p.getInventory().addItem(new ItemStack[]{is});

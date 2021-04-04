@@ -112,8 +112,9 @@ public class PlayerInteract_EVENT implements Listener {
                 || e.getClickedBlock().getType() == Material.ACACIA_TRAPDOOR
                 || e.getClickedBlock().getType() == Material.DARK_OAK_TRAPDOOR
                 || e.getClickedBlock().getType() == Material.CRIMSON_TRAPDOOR
+                || e.getClickedBlock().getType() == Material.WARPED_TRAPDOOR
                 || e.getClickedBlock().getType() == Material.COMPOSTER
-                || e.getClickedBlock().getType() == Material.WARPED_TRAPDOOR))
+                || e.getClickedBlock().getType() == Material.SPAWNER))
             e.setCancelled(true);
     }
 }
