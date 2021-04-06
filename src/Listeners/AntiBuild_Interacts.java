@@ -197,7 +197,10 @@ public class AntiBuild_Interacts implements Listener {
         long time = Bukkit.getServer().getWorld("world").getTime();
         boolean storm = Bukkit.getServer().getWorld("world").hasStorm();
         for (Entity entity : p.getNearbyEntities(8, 5, 8)) {
-            if (time >= 12542 && time <= 23459 || storm && !(entity instanceof Entity)) {
+            if (entity instanceof Creature) {
+                Bukkit.broadcastMessage("§6Mob ist in der Nähe");
+                e.setCancelled(true);
+            } else if (time >= 12542 && time <= 23459 || storm) {
                 if (permexo) {
                     Bukkit.broadcastMessage("§4§l" + p.getName() + " §fist schlafen gegangen.");
                     break;
