@@ -63,7 +63,6 @@ public class Main extends JavaPlugin implements Listener {
         pm.registerEvents(new AntiBuild_Interacts(), this);
         pm.registerEvents(new onDeath(), this);
         pm.registerEvents(new PlayerPickupItem(), this);
-        pm.registerEvents(new onDrop_EVENT(), this);
         pm.registerEvents(new PlayerInteract_EVENT(), this);
         pm.registerEvents(new Whitelist_PlayerLogin(), this);
         pm.registerEvents(new BannedTitle(), this);

@@ -11,7 +11,9 @@ import org.bukkit.entity.*;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.block.*;
+import org.bukkit.event.entity.EntityChangeBlockEvent;
 import org.bukkit.event.entity.EntityDamageByEntityEvent;
+import org.bukkit.event.entity.ProjectileHitEvent;
 import org.bukkit.event.hanging.HangingBreakByEntityEvent;
 import org.bukkit.event.hanging.HangingPlaceEvent;
 import org.bukkit.event.player.*;
@@ -23,7 +25,7 @@ import java.util.List;
 
 public class AntiBuild_Interacts implements Listener {
 
-    // Break
+    // BlockBreak
     @EventHandler
     public void onBreak(BlockBreakEvent e) {
         Player p = e.getPlayer();
@@ -33,13 +35,22 @@ public class AntiBuild_Interacts implements Listener {
         }
     }
 
-    // Place
+    // BlockPlace
     @EventHandler
     public void onPlace(BlockPlaceEvent e) {
         Player p = e.getPlayer();
         if (!Main.allowedPlayer.contains(p)) {
             e.setCancelled(true);
             p.sendMessage(Main.pre + " §cProtected!");
+        }
+    }
+
+    // PlayerDropItem
+    @EventHandler
+    public void onPlayerDropItem(PlayerDropItemEvent e) {
+        Player p = e.getPlayer();
+        if (!Main.allowedPlayer.contains(p)) {
+            e.setCancelled(true);
         }
     }
 
@@ -109,7 +120,8 @@ public class AntiBuild_Interacts implements Listener {
                 || p.getItemInHand().getType() == Material.SPRUCE_BOAT || p.getItemInHand().getType() == Material.MINECART
                 || p.getItemInHand().getType() == Material.CHEST_MINECART || p.getItemInHand().getType() == Material.FURNACE_MINECART
                 || p.getItemInHand().getType() == Material.HOPPER_MINECART || p.getItemInHand().getType() == Material.TNT_MINECART
-                || p.getItemInHand().getType() == Material.ARMOR_STAND || p.getItemInHand().getType() == Material.BONE_MEAL)) {
+                || p.getItemInHand().getType() == Material.ARMOR_STAND || p.getItemInHand().getType() == Material.BONE_MEAL
+                || p.getItemInHand().getType() == Material.FLINT_AND_STEEL)) {
             if (!Main.allowedPlayer.contains(p)) {
                 e.setCancelled(true);
             }
@@ -184,19 +196,18 @@ public class AntiBuild_Interacts implements Listener {
         boolean permexf = PermissionsEx.getUser(p).inGroup("Fellow");
         long time = Bukkit.getServer().getWorld("world").getTime();
         boolean storm = Bukkit.getServer().getWorld("world").hasStorm();
-        List<Entity> nearby = p.getNearbyEntities(8, 5, 0);
-        if (time >= 12542 && time <= 23459 || storm) {
-            if (nearby != null) {
-                Bukkit.broadcastMessage("True");
+        for (Entity entity : p.getNearbyEntities(8, 5, 8)) {
+            if (time >= 12542 && time <= 23459 || storm && !(entity instanceof Entity)) {
                 if (permexo) {
                     Bukkit.broadcastMessage("§4§l" + p.getName() + " §fist schlafen gegangen.");
+                    break;
                 } else if (permexv) {
                     Bukkit.broadcastMessage("§c" + p.getName() + " §fist schlafen gegangen.");
+                    break;
                 } else if (permexf) {
                     Bukkit.broadcastMessage("§5" + p.getName() + " §fist schlafen gegangen.");
+                    break;
                 }
-            } else {
-                Bukkit.broadcastMessage("Else");
             }
         }
     }
@@ -263,6 +274,16 @@ public class AntiBuild_Interacts implements Listener {
         Player p = e.getPlayer();
         if (!Main.allowedPlayer.contains(p)) {
             e.setCancelled(true);
+        }
+    }
+
+    // ProjectileHit
+    @EventHandler
+    public void onProjectileHit(ProjectileHitEvent e) {
+        if (e.getEntity().getShooter() instanceof Player) {
+            if (!Main.allowedPlayer.contains(e.getEntity().getShooter())) {
+                e.getEntity().setFireTicks(0);
+            }
         }
     }
 }
