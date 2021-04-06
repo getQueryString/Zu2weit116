@@ -48,5 +48,4 @@ public class Recipe {
         rc.setIngredient('P', Material.BLAZE_POWDER);
         Bukkit.addRecipe(rc);
     }
-
 }

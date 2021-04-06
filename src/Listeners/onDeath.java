@@ -88,23 +88,13 @@ public class onDeath implements Listener {
                 }
             } else if (gldc.getCause() == EntityDamageEvent.DamageCause.CUSTOM) {
                 if (permexo) {
-                    e.setDeathMessage(Main.pre + " §4§l" + p.getName() + " §fertrank.");
+                    e.setDeathMessage(Main.pre + " §4§l" + p.getName() + " §fCUSTOM.");
                 } else if (permexv) {
-                    e.setDeathMessage(Main.pre + " §c" + p.getName() + " §fertrank.");
+                    e.setDeathMessage(Main.pre + " §c" + p.getName() + " §fCUSTOM.");
                 } else if (permexf) {
-                    e.setDeathMessage(Main.pre + " §5" + p.getName() + " §fertrank.");
+                    e.setDeathMessage(Main.pre + " §5" + p.getName() + " §fCUSTOM.");
                 } else if (permexd) {
-                    e.setDeathMessage(Main.pre + " §8" + p.getName() + " §fertrank.");
-                }
-            } else if (gldc.getCause() == EntityDamageEvent.DamageCause.CUSTOM) {
-                if (permexo) {
-                    e.setDeathMessage(Main.pre + " §4§l" + p.getName() + " §fertrank.");
-                } else if (permexv) {
-                    e.setDeathMessage(Main.pre + " §c" + p.getName() + " §fertrank.");
-                } else if (permexf) {
-                    e.setDeathMessage(Main.pre + " §5" + p.getName() + " §fertrank.");
-                } else if (permexd) {
-                    e.setDeathMessage(Main.pre + " §8" + p.getName() + " §fertrank.");
+                    e.setDeathMessage(Main.pre + " §8" + p.getName() + " §fCUSTOM.");
                 }
             } else if (gldc.getCause() == EntityDamageEvent.DamageCause.DRAGON_BREATH) {
                 if (permexo) {
@@ -138,13 +128,13 @@ public class onDeath implements Listener {
                 }
             } else if (gldc.getCause() == EntityDamageEvent.DamageCause.FIRE) {
                 if (permexo) {
-                    e.setDeathMessage(Main.pre + " §4§l" + p.getName() + " §fFIRE.");
+                    e.setDeathMessage(Main.pre + " §4§l" + p.getName() + " §fging in Flammen auf.");
                 } else if (permexv) {
-                    e.setDeathMessage(Main.pre + " §c" + p.getName() + " §fFIRE.");
+                    e.setDeathMessage(Main.pre + " §c" + p.getName() + " §fging in Flammen auf.");
                 } else if (permexf) {
-                    e.setDeathMessage(Main.pre + " §5" + p.getName() + " §fFIRE.");
+                    e.setDeathMessage(Main.pre + " §5" + p.getName() + " §fging in Flammen auf.");
                 } else if (permexd) {
-                    e.setDeathMessage(Main.pre + " §8" + p.getName() + " §fFIRE.");
+                    e.setDeathMessage(Main.pre + " §8" + p.getName() + " §fging in Flammen auf.");
                 }
             } else if (gldc.getCause() == EntityDamageEvent.DamageCause.FIRE_TICK) {
                 if (permexo) {
@@ -307,7 +297,7 @@ public class onDeath implements Listener {
             Entity killer = lastDamageCause.getDamager();
             String getItem = killer.getName();
             if (killer instanceof Entity && !(killer instanceof Creeper) && !(killer instanceof Arrow) && !(killer instanceof Trident)
-                    && !(killer instanceof Bee) && !(killer instanceof TNTPrimed) && !(killer instanceof FallingBlock)) {
+                    && !(killer instanceof Bee) && !(killer instanceof TNTPrimed) && !(killer instanceof FallingBlock) && !(p == k) && !(k != null)) {
                 if (permexo) {
                     e.setDeathMessage(Main.pre + " §4§l" + p.getName() + " §fwurde von §e" + killer.getName() + " §ferschlagen.");
                 } else if (permexv) {
@@ -339,7 +329,7 @@ public class onDeath implements Listener {
                     } else if (permexd) {
                         e.setDeathMessage(Main.pre + " §8" + p.getName() + " §fwurde von §e" + getItem + " §ferschossen.");
                     }
-                } else if (!(arrow.getShooter() instanceof BlockProjectileSource)) {
+                } else if (!(arrow.getShooter() instanceof BlockProjectileSource) && !(p == k) && !(k != null)) {
                     String shooter = ((Entity) arrow.getShooter()).getName();
                     if (permexo) {
                         e.setDeathMessage(Main.pre + " §4§l" + p.getName() + " §fwurde von §e" + shooter + " §ferschossen.");
@@ -350,18 +340,116 @@ public class onDeath implements Listener {
                     } else if (permexd) {
                         e.setDeathMessage(Main.pre + " §8" + p.getName() + " §fwurde von §e" + shooter + " §ferschossen.");
                     }
+                } else if (p == k) {
+                    if (permexo) {
+                        e.setDeathMessage(Main.pre + " §4§l" + p.getName() + " §fhat sich mit einem §e" + killer.getName() + " §ferschossen.");
+                    } else if (permexv) {
+                        e.setDeathMessage(Main.pre + " §c" + p.getName() + " §fhat sich mit einem §e" + killer.getName() + " §ferschossen.");
+                    } else if (permexf) {
+                        e.setDeathMessage(Main.pre + " §5" + p.getName() + " §fhat sich mit einem §e" + killer.getName() + " §ferschossen.");
+                    } else if (permexd) {
+                        e.setDeathMessage(Main.pre + " §8" + p.getName() + " §fhat sich mit einem §e" + killer.getName() + " §ferschossen.");
+                    }
+                } else if (k != null) {
+                    boolean kpermexo = PermissionsEx.getUser(k).inGroup("Owner");
+                    boolean kpermexv = PermissionsEx.getUser(k).inGroup("Vice");
+                    boolean kpermexf = PermissionsEx.getUser(k).inGroup("Fellow");
+                    boolean kpermexd = PermissionsEx.getUser(k).inGroup("default");
+                    if (permexo && kpermexo) {
+                        e.setDeathMessage(Main.pre + " §4§l" + p.getName() + " §fwurde von §4§l" + k.getName() + " §fmit einem §e" + getItem + " §ferschossen.");
+                    } else if (permexo && kpermexv) {
+                        e.setDeathMessage(Main.pre + " §4§l" + p.getName() + " §fwurde von §c" + k.getName() + " §fmit einem §e" + getItem + " §ferschossen.");
+                    } else if (permexo && kpermexf) {
+                        e.setDeathMessage(Main.pre + " §4§l" + p.getName() + " §fwurde von §5" + k.getName() + " §fmit einem §e" + getItem + " §ferschossen.");
+                    } else if (permexo && kpermexd) {
+                        e.setDeathMessage(Main.pre + " §4§l" + p.getName() + " §fwurde von §8" + k.getName() + " §fmit einem §e" + getItem + " §ferschossen.");
+                    } else if (permexv && kpermexo) {
+                        e.setDeathMessage(Main.pre + " §c" + p.getName() + " §fwurde von §4§l" + k.getName() + " §fmit einem §e" + getItem + " §ferschossen.");
+                    } else if (permexv && kpermexv) {
+                        e.setDeathMessage(Main.pre + " §c" + p.getName() + " §fwurde von §c" + k.getName() + " §fmit einem §e" + getItem + " §ferschossen.");
+                    } else if (permexv && kpermexf) {
+                        e.setDeathMessage(Main.pre + " §c" + p.getName() + " §fwurde von §5" + k.getName() + " §fmit einem §e" + getItem + " §ferschossen.");
+                    } else if (permexv && kpermexd) {
+                        e.setDeathMessage(Main.pre + " §c" + p.getName() + " §fwurde von §8" + k.getName() + " §fmit einem §e" + getItem + " §ferschossen.");
+                    } else if (permexf && kpermexo) {
+                        e.setDeathMessage(Main.pre + " §5" + p.getName() + " §fwurde von §4§l" + k.getName() + " §fmit einem §e" + getItem + " §ferschossen.");
+                    } else if (permexf && kpermexv) {
+                        e.setDeathMessage(Main.pre + " §5" + p.getName() + " §fwurde von §c" + k.getName() + " §fmit einem §e" + getItem + " §ferschossen.");
+                    } else if (permexf && kpermexf) {
+                        e.setDeathMessage(Main.pre + " §5" + p.getName() + " §fwurde von §5" + k.getName() + " §fmit einem §e" + getItem + " §ferschossen.");
+                    } else if (permexf && kpermexd) {
+                        e.setDeathMessage(Main.pre + " §5" + p.getName() + " §fwurde von §8" + k.getName() + " §fmit einem §e" + getItem + " §ferschossen.");
+                    } else if (permexd && kpermexo) {
+                        e.setDeathMessage(Main.pre + " §8" + p.getName() + " §fwurde von §4§l" + k.getName() + " §fmit einem §e" + getItem + " §ferschossen.");
+                    } else if (permexd && kpermexv) {
+                        e.setDeathMessage(Main.pre + " §8" + p.getName() + " §fwurde von §c" + k.getName() + " §fmit einem §e" + getItem + " §ferschossen.");
+                    } else if (permexd && kpermexf) {
+                        e.setDeathMessage(Main.pre + " §8" + p.getName() + " §fwurde von §5" + k.getName() + " §fmit einem §e" + getItem + " §ferschossen.");
+                    } else if (permexd && kpermexd) {
+                        e.setDeathMessage(Main.pre + " §8" + p.getName() + " §fwurde von §8" + k.getName() + " §fmit einem §e" + getItem + " §ferschossen.");
+                    }
                 }
             } else if (killer instanceof Trident) {
                 Trident trident = (Trident) lastDamageCause.getDamager();
                 String shooter = ((Entity) trident.getShooter()).getName();
-                if (permexo) {
-                    e.setDeathMessage(Main.pre + " §4§l" + p.getName() + " §fwurde von §e" + shooter + " §fmit einem §e" + killer.getName() + " §ferschossen.");
-                } else if (permexv) {
-                    e.setDeathMessage(Main.pre + " §c" + p.getName() + " §fwurde von §e" + shooter + " §fmit einem §e" + killer.getName() + " §ferschossen.");
-                } else if (permexf) {
-                    e.setDeathMessage(Main.pre + " §5" + p.getName() + " §fwurde von §e" + shooter + " §fmit einem §e" + killer.getName() + " §ferschossen.");
-                } else if (permexd) {
-                    e.setDeathMessage(Main.pre + " §8" + p.getName() + " §fwurde von §e" + shooter + " §fmit einem §e" + killer.getName() + " §ferschossen.");
+                if (killer instanceof Player) {
+                    if (permexo) {
+                        e.setDeathMessage(Main.pre + " §4§l" + p.getName() + " §fwurde von §e" + shooter + " §fmit einem §e" + killer.getName() + " §ferschossen.");
+                    } else if (permexv) {
+                        e.setDeathMessage(Main.pre + " §c" + p.getName() + " §fwurde von §e" + shooter + " §fmit einem §e" + killer.getName() + " §ferschossen.");
+                    } else if (permexf) {
+                        e.setDeathMessage(Main.pre + " §5" + p.getName() + " §fwurde von §e" + shooter + " §fmit einem §e" + killer.getName() + " §ferschossen.");
+                    } else if (permexd) {
+                        e.setDeathMessage(Main.pre + " §8" + p.getName() + " §fwurde von §e" + shooter + " §fmit einem §e" + killer.getName() + " §ferschossen.");
+                    }
+                } else if (p == k) {
+                    if (permexo) {
+                        e.setDeathMessage(Main.pre + " §4§l" + p.getName() + " §fhat sich mit einem §e" + killer.getName() + " §ferschossen.");
+                    } else if (permexv) {
+                        e.setDeathMessage(Main.pre + " §c" + p.getName() + " §fhat sich mit einem §e" + killer.getName() + " §ferschossen.e ");
+                    } else if (permexf) {
+                        e.setDeathMessage(Main.pre + " §5" + p.getName() + " §fhat sich mit einem §e" + killer.getName() + " §ferschossen.");
+                    } else if (permexd) {
+                        e.setDeathMessage(Main.pre + " §8" + p.getName() + " §fhat sich mit einem §e" + killer.getName() + " §ferschossen.");
+                    }
+                } else if (k != null) {
+                    boolean kpermexo = PermissionsEx.getUser(k).inGroup("Owner");
+                    boolean kpermexv = PermissionsEx.getUser(k).inGroup("Vice");
+                    boolean kpermexf = PermissionsEx.getUser(k).inGroup("Fellow");
+                    boolean kpermexd = PermissionsEx.getUser(k).inGroup("default");
+                    if (permexo && kpermexo) {
+                        e.setDeathMessage(Main.pre + " §4§l" + p.getName() + " §fwurde von §4§l" + k.getName() + " §fmit einem §e" + killer.getName() + " §ferschossen.");
+                    } else if (permexo && kpermexv) {
+                        e.setDeathMessage(Main.pre + " §4§l" + p.getName() + " §fwurde von §c" + k.getName() + " §fmit einem §e" + killer.getName() + " §ferschossen.");
+                    } else if (permexo && kpermexf) {
+                        e.setDeathMessage(Main.pre + " §4§l" + p.getName() + " §fwurde von §5" + k.getName() + " §fmit einem §e" + killer.getName() + " §ferschossen.");
+                    } else if (permexo && kpermexd) {
+                        e.setDeathMessage(Main.pre + " §4§l" + p.getName() + " §fwurde von §8" + k.getName() + " §fmit einem §e" + killer.getName() + " §ferschossen.");
+                    } else if (permexv && kpermexo) {
+                        e.setDeathMessage(Main.pre + " §c" + p.getName() + " §fwurde von §4§l" + k.getName() + " §fmit einem §e" + killer.getName() + " §ferschossen.");
+                    } else if (permexv && kpermexv) {
+                        e.setDeathMessage(Main.pre + " §c" + p.getName() + " §fwurde von §c" + k.getName() + " §fmit einem §e" + killer.getName() + " §ferschossen.");
+                    } else if (permexv && kpermexf) {
+                        e.setDeathMessage(Main.pre + " §c" + p.getName() + " §fwurde von §5" + k.getName() + " §fmit einem §e" + killer.getName() + " §ferschossen.");
+                    } else if (permexv && kpermexd) {
+                        e.setDeathMessage(Main.pre + " §c" + p.getName() + " §fwurde von §8" + k.getName() + " §fmit einem §e" + killer.getName() + " §ferschossen.");
+                    } else if (permexf && kpermexo) {
+                        e.setDeathMessage(Main.pre + " §5" + p.getName() + " §fwurde von §4§l" + k.getName() + " §fmit einem §e" + killer.getName() + " §ferschossen.");
+                    } else if (permexf && kpermexv) {
+                        e.setDeathMessage(Main.pre + " §5" + p.getName() + " §fwurde von §c" + k.getName() + " §fmit einem §e" + killer.getName() + " §ferschossen.");
+                    } else if (permexf && kpermexf) {
+                        e.setDeathMessage(Main.pre + " §5" + p.getName() + " §fwurde von §5" + k.getName() + " §fmit einem §e" + killer.getName() + " §ferschossen.");
+                    } else if (permexf && kpermexd) {
+                        e.setDeathMessage(Main.pre + " §5" + p.getName() + " §fwurde von §8" + k.getName() + " §fmit einem §e" + killer.getName() + " §ferschossen.");
+                    } else if (permexd && kpermexo) {
+                        e.setDeathMessage(Main.pre + " §8" + p.getName() + " §fwurde von §4§l" + k.getName() + " §fmit einem §e" + killer.getName() + " §ferschossen.");
+                    } else if (permexd && kpermexv) {
+                        e.setDeathMessage(Main.pre + " §8" + p.getName() + " §fwurde von §c" + k.getName() + " §fmit einem §e" + killer.getName() + " §ferschossen.");
+                    } else if (permexd && kpermexf) {
+                        e.setDeathMessage(Main.pre + " §8" + p.getName() + " §fwurde von §5" + k.getName() + " §fmit einem §e" + killer.getName() + " §ferschossen.");
+                    } else if (permexd && kpermexd) {
+                        e.setDeathMessage(Main.pre + " §8" + p.getName() + " §fwurde von §8" + k.getName() + " §fmit einem §e" + killer.getName() + " §ferschossen.");
+                    }
                 }
             } else if (killer instanceof Bee) {
                 if (permexo) {
@@ -383,8 +471,7 @@ public class onDeath implements Listener {
                 } else if (permexd) {
                     e.setDeathMessage(Main.pre + " §8" + p.getName() + " §fwurde durch §e" + killer.getName() + " §fzerquetscht.");
                 }
-            }
-            if (p == k) {
+            } else if (p == k) {
                 if (permexo) {
                     e.setDeathMessage(Main.pre + " §4§l" + p.getName() + " §fhat sich mit einem §e" + killer.getName() + " §ferschossen.");
                 } else if (permexv) {
@@ -400,37 +487,37 @@ public class onDeath implements Listener {
                 boolean kpermexf = PermissionsEx.getUser(k).inGroup("Fellow");
                 boolean kpermexd = PermissionsEx.getUser(k).inGroup("default");
                 if (permexo && kpermexo) {
-                    e.setDeathMessage(Main.pre + " §4§l" + p.getName() + " §fwurde von §4§l" + k.getName() + " §fmit einem §e" + getItem + " §ferschossen.");
+                    e.setDeathMessage(Main.pre + " §4§l" + p.getName() + " §fwurde von §4§l" + k.getName() + " §fgetötet.");
                 } else if (permexo && kpermexv) {
-                    e.setDeathMessage(Main.pre + " §4§l" + p.getName() + " §fwurde von §c" + k.getName() + " §fmit einem §e" + getItem + " §ferschossen.");
+                    e.setDeathMessage(Main.pre + " §4§l" + p.getName() + " §fwurde von §c" + k.getName() + " §fgetötet.");
                 } else if (permexo && kpermexf) {
-                    e.setDeathMessage(Main.pre + " §4§l" + p.getName() + " §fwurde von §5" + k.getName() + " §fmit einem §e" + getItem + " §ferschossen.");
+                    e.setDeathMessage(Main.pre + " §4§l" + p.getName() + " §fwurde von §5" + k.getName() + " §fgetötet.");
                 } else if (permexo && kpermexd) {
-                    e.setDeathMessage(Main.pre + " §4§l" + p.getName() + " §fwurde von §8" + k.getName() + " §fmit einem §e" + getItem + " §ferschossen.");
+                    e.setDeathMessage(Main.pre + " §4§l" + p.getName() + " §fwurde von §8" + k.getName() + " §fgetötet.");
                 } else if (permexv && kpermexo) {
-                    e.setDeathMessage(Main.pre + " §c" + p.getName() + " §fwurde von §4§l" + k.getName() + " §fmit einem §e" + getItem + " §ferschossen.");
+                    e.setDeathMessage(Main.pre + " §c" + p.getName() + " §fwurde von §4§l" + k.getName() + " §fgetötet.");
                 } else if (permexv && kpermexv) {
-                    e.setDeathMessage(Main.pre + " §c" + p.getName() + " §fwurde von §c" + k.getName() + " §fmit einem §e" + getItem + " §ferschossen.");
+                    e.setDeathMessage(Main.pre + " §c" + p.getName() + " §fwurde von §c" + k.getName() + " §fgetötet.");
                 } else if (permexv && kpermexf) {
-                    e.setDeathMessage(Main.pre + " §c" + p.getName() + " §fwurde von §5" + k.getName() + " §fmit einem §e" + getItem + " §ferschossen.");
+                    e.setDeathMessage(Main.pre + " §c" + p.getName() + " §fwurde von §5" + k.getName() + " §fgetötet.");
                 } else if (permexv && kpermexd) {
-                    e.setDeathMessage(Main.pre + " §c" + p.getName() + " §fwurde von §8" + k.getName() + " §fmit einem §e" + getItem + " §ferschossen.");
+                    e.setDeathMessage(Main.pre + " §c" + p.getName() + " §fwurde von §8" + k.getName() + " §fgetötet.");
                 } else if (permexf && kpermexo) {
-                    e.setDeathMessage(Main.pre + " §5" + p.getName() + " §fwurde von §4§l" + k.getName() + " §fmit einem §e" + getItem + " §ferschossen.");
+                    e.setDeathMessage(Main.pre + " §5" + p.getName() + " §fwurde von §4§l" + k.getName() + " §fgetötet.");
                 } else if (permexf && kpermexv) {
-                    e.setDeathMessage(Main.pre + " §5" + p.getName() + " §fwurde von §c" + k.getName() + " §fmit einem §e" + getItem + " §ferschossen.");
+                    e.setDeathMessage(Main.pre + " §5" + p.getName() + " §fwurde von §c" + k.getName() + " §fgetötet.");
                 } else if (permexf && kpermexf) {
-                    e.setDeathMessage(Main.pre + " §5" + p.getName() + " §fwurde von §5" + k.getName() + " §fmit einem §e" + getItem + " §ferschossen.");
+                    e.setDeathMessage(Main.pre + " §5" + p.getName() + " §fwurde von §5" + k.getName() + " §fgetötet.");
                 } else if (permexf && kpermexd) {
-                    e.setDeathMessage(Main.pre + " §5" + p.getName() + " §fwurde von §8" + k.getName() + " §fmit einem §e" + getItem + " §ferschossen.");
+                    e.setDeathMessage(Main.pre + " §5" + p.getName() + " §fwurde von §8" + k.getName() + " §fgetötet.");
                 } else if (permexd && kpermexo) {
-                    e.setDeathMessage(Main.pre + " §8" + p.getName() + " §fwurde von §4§l" + k.getName() + " §fmit einem §e" + getItem + " §ferschossen.");
+                    e.setDeathMessage(Main.pre + " §8" + p.getName() + " §fwurde von §4§l" + k.getName() + " §fgetötet.");
                 } else if (permexd && kpermexv) {
-                    e.setDeathMessage(Main.pre + " §8" + p.getName() + " §fwurde von §c" + k.getName() + " §fmit einem §e" + getItem + " §ferschossen.");
+                    e.setDeathMessage(Main.pre + " §8" + p.getName() + " §fwurde von §c" + k.getName() + " §fgetötet.");
                 } else if (permexd && kpermexf) {
-                    e.setDeathMessage(Main.pre + " §8" + p.getName() + " §fwurde von §5" + k.getName() + " §fmit einem §e" + getItem + " §ferschossen.");
+                    e.setDeathMessage(Main.pre + " §8" + p.getName() + " §fwurde von §5" + k.getName() + " §fgetötet.");
                 } else if (permexd && kpermexd) {
-                    e.setDeathMessage(Main.pre + " §8" + p.getName() + " §fwurde von §8" + k.getName() + " §fmit einem §e" + getItem + " §ferschossen.");
+                    e.setDeathMessage(Main.pre + " §8" + p.getName() + " §fwurde von §8" + k.getName() + " §fgetötet.");
                 }
             }
         }

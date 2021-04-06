@@ -25,7 +25,7 @@ public class CMD_Ping implements CommandExecutor {
                     } else if (args.length >= 2) {
                         p.sendMessage("§bBenutze: §f/§cp§fing §a<Player>");
                     }
-                    if (args.length == 1) {
+                    if (args.length == 1) {//   /args[0] args[1] args[2] args[3]
                         try {
                             Player t = Bukkit.getServer().getPlayer(args[0]);
                             int ping = (((CraftPlayer) t).getHandle()).ping;
