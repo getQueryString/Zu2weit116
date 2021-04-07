@@ -60,12 +60,12 @@ public class Main extends JavaPlugin implements Listener {
         pm.registerEvents(new PlayerChatEvent(), this);
         pm.registerEvents(new SignListener(), this);
         pm.registerEvents(new JoinLeaveKick(), this);
-        pm.registerEvents(new AntiBuild_Interacts(), this);
+        pm.registerEvents(new AntiBuild_Events(), this);
         pm.registerEvents(new onDeath(), this);
         pm.registerEvents(new PlayerPickupItem(), this);
-        pm.registerEvents(new PlayerInteract_EVENT(), this);
         pm.registerEvents(new Whitelist_PlayerLogin(), this);
         pm.registerEvents(new BannedTitle(), this);
+        pm.registerEvents(new Vektor(), this);
         pm.registerEvents(as, this);
         pm.registerEvents(cl, this);
         pm.registerEvents(cp, this);

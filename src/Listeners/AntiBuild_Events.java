@@ -3,6 +3,7 @@
 package Listeners;
 
 import Main.Main;
+import io.netty.handler.codec.rtsp.RtspResponseStatuses;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.Material;
@@ -13,25 +14,31 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.block.*;
 import org.bukkit.event.entity.EntityChangeBlockEvent;
 import org.bukkit.event.entity.EntityDamageByEntityEvent;
+import org.bukkit.event.entity.PlayerDeathEvent;
 import org.bukkit.event.entity.ProjectileHitEvent;
 import org.bukkit.event.hanging.HangingBreakByEntityEvent;
 import org.bukkit.event.hanging.HangingPlaceEvent;
 import org.bukkit.event.player.*;
 import org.bukkit.event.vehicle.VehicleDestroyEvent;
+import org.bukkit.scheduler.BukkitRunnable;
 import org.bukkit.scheduler.BukkitTask;
 import ru.tehkode.permissions.bukkit.PermissionsEx;
 
 import java.util.List;
 
-public class AntiBuild_Interacts implements Listener {
+public class AntiBuild_Events implements Listener {
 
     // BlockBreak
     @EventHandler
     public void onBreak(BlockBreakEvent e) {
         Player p = e.getPlayer();
+        boolean permexo = PermissionsEx.getUser(p).inGroup("Owner");
+        boolean permexv = PermissionsEx.getUser(p).inGroup("Vice");
         if (!Main.allowedPlayer.contains(p)) {
             e.setCancelled(true);
-            p.sendMessage(Main.pre + " §cProtected!");
+            if (permexo || permexv) {
+                p.sendMessage(Main.pre + " §cProtected!");
+            }
         }
     }
 
@@ -39,9 +46,13 @@ public class AntiBuild_Interacts implements Listener {
     @EventHandler
     public void onPlace(BlockPlaceEvent e) {
         Player p = e.getPlayer();
+        boolean permexo = PermissionsEx.getUser(p).inGroup("Owner");
+        boolean permexv = PermissionsEx.getUser(p).inGroup("Vice");
         if (!Main.allowedPlayer.contains(p)) {
             e.setCancelled(true);
-            p.sendMessage(Main.pre + " §cProtected!");
+            if (permexo || permexv) {
+                p.sendMessage(Main.pre + " §cProtected!");
+            }
         }
     }
 
@@ -114,7 +125,7 @@ public class AntiBuild_Interacts implements Listener {
                 e.setCancelled(true);
             }
         }
-        if ((e.getAction() == Action.RIGHT_CLICK_BLOCK) && (p.getItemInHand().getType() == Material.ACACIA_BOAT
+        if (!Main.allowedPlayer.contains(p) && e.getAction() == Action.RIGHT_CLICK_BLOCK && (p.getItemInHand().getType() == Material.ACACIA_BOAT
                 || p.getItemInHand().getType() == Material.BIRCH_BOAT || p.getItemInHand().getType() == Material.DARK_OAK_BOAT
                 || p.getItemInHand().getType() == Material.JUNGLE_BOAT || p.getItemInHand().getType() == Material.OAK_BOAT
                 || p.getItemInHand().getType() == Material.SPRUCE_BOAT || p.getItemInHand().getType() == Material.MINECART
@@ -122,14 +133,111 @@ public class AntiBuild_Interacts implements Listener {
                 || p.getItemInHand().getType() == Material.HOPPER_MINECART || p.getItemInHand().getType() == Material.TNT_MINECART
                 || p.getItemInHand().getType() == Material.ARMOR_STAND || p.getItemInHand().getType() == Material.BONE_MEAL
                 || p.getItemInHand().getType() == Material.FLINT_AND_STEEL)) {
-            if (!Main.allowedPlayer.contains(p)) {
-                e.setCancelled(true);
-            }
+            e.setCancelled(true);
         }
-        if (e.getAction() == Action.RIGHT_CLICK_BLOCK && e.getClickedBlock().getType().equals(Material.DRAGON_EGG)) {
-            if (!Main.allowedPlayer.contains(p)) {
-                e.setCancelled(true);
-            }
+        if (!Main.allowedPlayer.contains(p)
+                && e.getAction() == Action.RIGHT_CLICK_BLOCK
+                && (e.getClickedBlock().getType() == Material.CHEST || e.getClickedBlock().getType() == Material.DROPPER
+                || e.getClickedBlock().getType() == Material.DISPENSER
+                || e.getClickedBlock().getType() == Material.FURNACE
+                || e.getClickedBlock().getType() == Material.BEACON
+                || e.getClickedBlock().getType() == Material.TRAPPED_CHEST
+                || e.getClickedBlock().getType() == Material.ENDER_CHEST
+                || e.getClickedBlock().getType() == Material.ENCHANTING_TABLE
+                || e.getClickedBlock().getType() == Material.ANVIL
+                || e.getClickedBlock().getType() == Material.CHIPPED_ANVIL
+                || e.getClickedBlock().getType() == Material.DAMAGED_ANVIL
+                || e.getClickedBlock().getType() == Material.CRAFTING_TABLE
+                || e.getClickedBlock().getType() == Material.WHITE_BED
+                || e.getClickedBlock().getType() == Material.ORANGE_BED
+                || e.getClickedBlock().getType() == Material.MAGENTA_BED
+                || e.getClickedBlock().getType() == Material.LIGHT_BLUE_BED
+                || e.getClickedBlock().getType() == Material.YELLOW_BED
+                || e.getClickedBlock().getType() == Material.LIME_BED
+                || e.getClickedBlock().getType() == Material.PINK_BED
+                || e.getClickedBlock().getType() == Material.GRAY_BED
+                || e.getClickedBlock().getType() == Material.LIGHT_GRAY_BED
+                || e.getClickedBlock().getType() == Material.CYAN_BED
+                || e.getClickedBlock().getType() == Material.PURPLE_BED
+                || e.getClickedBlock().getType() == Material.BLUE_BED
+                || e.getClickedBlock().getType() == Material.BROWN_BED
+                || e.getClickedBlock().getType() == Material.GREEN_BED
+                || e.getClickedBlock().getType() == Material.RED_BED
+                || e.getClickedBlock().getType() == Material.BLACK_BED
+                || e.getClickedBlock().getType() == Material.SHULKER_BOX
+                || e.getClickedBlock().getType() == Material.WHITE_SHULKER_BOX
+                || e.getClickedBlock().getType() == Material.ORANGE_SHULKER_BOX
+                || e.getClickedBlock().getType() == Material.MAGENTA_SHULKER_BOX
+                || e.getClickedBlock().getType() == Material.LIGHT_BLUE_SHULKER_BOX
+                || e.getClickedBlock().getType() == Material.YELLOW_SHULKER_BOX
+                || e.getClickedBlock().getType() == Material.LIME_SHULKER_BOX
+                || e.getClickedBlock().getType() == Material.PINK_SHULKER_BOX
+                || e.getClickedBlock().getType() == Material.GRAY_SHULKER_BOX
+                || e.getClickedBlock().getType() == Material.LIGHT_GRAY_SHULKER_BOX
+                || e.getClickedBlock().getType() == Material.CYAN_SHULKER_BOX
+                || e.getClickedBlock().getType() == Material.PURPLE_SHULKER_BOX
+                || e.getClickedBlock().getType() == Material.BLUE_SHULKER_BOX
+                || e.getClickedBlock().getType() == Material.BROWN_SHULKER_BOX
+                || e.getClickedBlock().getType() == Material.GREEN_SHULKER_BOX
+                || e.getClickedBlock().getType() == Material.RED_SHULKER_BOX
+                || e.getClickedBlock().getType() == Material.BLACK_SHULKER_BOX
+                || e.getClickedBlock().getType() == Material.LOOM
+                || e.getClickedBlock().getType() == Material.STONECUTTER
+                || e.getClickedBlock().getType() == Material.BARREL
+                || e.getClickedBlock().getType() == Material.SMOKER
+                || e.getClickedBlock().getType() == Material.BLAST_FURNACE
+                || e.getClickedBlock().getType() == Material.CARTOGRAPHY_TABLE
+                || e.getClickedBlock().getType() == Material.FLETCHING_TABLE
+                || e.getClickedBlock().getType() == Material.GRINDSTONE
+                || e.getClickedBlock().getType() == Material.SMITHING_TABLE
+                || e.getClickedBlock().getType() == Material.REPEATER
+                || e.getClickedBlock().getType() == Material.COMPARATOR
+                || e.getClickedBlock().getType() == Material.LEVER
+                || e.getClickedBlock().getType() == Material.HOPPER
+                || e.getClickedBlock().getType() == Material.DAYLIGHT_DETECTOR
+                || e.getClickedBlock().getType() == Material.LECTERN
+                || e.getClickedBlock().getType() == Material.JUKEBOX
+                || e.getClickedBlock().getType() == Material.NOTE_BLOCK
+                || e.getClickedBlock().getType() == Material.BREWING_STAND
+                || e.getClickedBlock().getType() == Material.OAK_DOOR
+                || e.getClickedBlock().getType() == Material.SPRUCE_DOOR
+                || e.getClickedBlock().getType() == Material.BIRCH_DOOR
+                || e.getClickedBlock().getType() == Material.JUNGLE_DOOR
+                || e.getClickedBlock().getType() == Material.ACACIA_DOOR
+                || e.getClickedBlock().getType() == Material.DARK_OAK_DOOR
+                || e.getClickedBlock().getType() == Material.CRIMSON_DOOR
+                || e.getClickedBlock().getType() == Material.WARPED_DOOR
+                || e.getClickedBlock().getType() == Material.OAK_FENCE_GATE
+                || e.getClickedBlock().getType() == Material.SPRUCE_FENCE_GATE
+                || e.getClickedBlock().getType() == Material.BIRCH_FENCE_GATE
+                || e.getClickedBlock().getType() == Material.JUNGLE_FENCE_GATE
+                || e.getClickedBlock().getType() == Material.ACACIA_FENCE_GATE
+                || e.getClickedBlock().getType() == Material.DARK_OAK_FENCE_GATE
+                || e.getClickedBlock().getType() == Material.CRIMSON_FENCE_GATE
+                || e.getClickedBlock().getType() == Material.WARPED_FENCE_GATE
+                || e.getClickedBlock().getType() == Material.STONE_BUTTON
+                || e.getClickedBlock().getType() == Material.OAK_BUTTON
+                || e.getClickedBlock().getType() == Material.SPRUCE_BUTTON
+                || e.getClickedBlock().getType() == Material.BIRCH_BUTTON
+                || e.getClickedBlock().getType() == Material.JUNGLE_BUTTON
+                || e.getClickedBlock().getType() == Material.ACACIA_BUTTON
+                || e.getClickedBlock().getType() == Material.DARK_OAK_BUTTON
+                || e.getClickedBlock().getType() == Material.CRIMSON_BUTTON
+                || e.getClickedBlock().getType() == Material.WARPED_BUTTON
+                || e.getClickedBlock().getType() == Material.POLISHED_BLACKSTONE_BUTTON
+                || e.getClickedBlock().getType() == Material.OAK_TRAPDOOR
+                || e.getClickedBlock().getType() == Material.SPRUCE_TRAPDOOR
+                || e.getClickedBlock().getType() == Material.BIRCH_TRAPDOOR
+                || e.getClickedBlock().getType() == Material.JUNGLE_TRAPDOOR
+                || e.getClickedBlock().getType() == Material.ACACIA_TRAPDOOR
+                || e.getClickedBlock().getType() == Material.DARK_OAK_TRAPDOOR
+                || e.getClickedBlock().getType() == Material.CRIMSON_TRAPDOOR
+                || e.getClickedBlock().getType() == Material.WARPED_TRAPDOOR
+                || e.getClickedBlock().getType() == Material.COMPOSTER
+                || e.getClickedBlock().getType() == Material.CAKE
+                || e.getClickedBlock().getType() == Material.DRAGON_EGG
+                || e.getClickedBlock().getType() == Material.SPAWNER)) {
+            e.setCancelled(true);
         }
     }
 

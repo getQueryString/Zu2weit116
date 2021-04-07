@@ -44,15 +44,47 @@ public class CMD_HostAddress implements CommandExecutor {
                                     }
                                 }
                             } else if (t.getAddress().getAddress().getHostAddress().equalsIgnoreCase("127.0.0.1")) {
-                                p.sendMessage(Main.pre + " §a" + t.getName() + " §aist local angemeldet: §e"
-                                        + t.getAddress().getAddress().getHostAddress());
+                                boolean targpermexo = PermissionsEx.getUser(t).inGroup("Owner");
+                                boolean targpermexv = PermissionsEx.getUser(t).inGroup("Vice");
+                                boolean targpermexf = PermissionsEx.getUser(t).inGroup("Fellow");
+                                boolean targpermexd = PermissionsEx.getUser(t).inGroup("default");
+                                if (targpermexo) {
+                                    p.sendMessage(Main.pre + " §4§l" + t.getName() + " §aist local angemeldet: §e" + t.getAddress().getAddress().getHostAddress());
+                                } else if (targpermexv) {
+                                    p.sendMessage(Main.pre + " §c" + t.getName() + " §aist local angemeldet: §e" + t.getAddress().getAddress().getHostAddress());
+                                } else if (targpermexf) {
+                                    p.sendMessage(Main.pre + " §5" + t.getName() + " §aist local angemeldet: §e" + t.getAddress().getAddress().getHostAddress());
+                                } else if (targpermexd) {
+                                    p.sendMessage(Main.pre + " §8" + t.getName() + " §aist local angemeldet: §e" + t.getAddress().getAddress().getHostAddress());
+                                }
                             } else if (t.getAddress().getAddress().getHostAddress().startsWith("192.168")) {
-                                p.sendMessage(
-                                        Main.pre + " §a" + t.getName() + " §aist im selben Netzwerk angemeldet: §e"
-                                                + t.getAddress().getAddress().getHostAddress());
+                                boolean targpermexo = PermissionsEx.getUser(t).inGroup("Owner");
+                                boolean targpermexv = PermissionsEx.getUser(t).inGroup("Vice");
+                                boolean targpermexf = PermissionsEx.getUser(t).inGroup("Fellow");
+                                boolean targpermexd = PermissionsEx.getUser(t).inGroup("default");
+                                if (targpermexo) {
+                                    p.sendMessage(Main.pre + " §4§l" + t.getName() + " §aist im selben Netzwerk angemeldet: §e" + t.getAddress().getAddress().getHostAddress());
+                                } else if (targpermexv) {
+                                    p.sendMessage(Main.pre + " §c" + t.getName() + " §aist im selben Netzwerk angemeldet: §e" + t.getAddress().getAddress().getHostAddress());
+                                } else if (targpermexf) {
+                                    p.sendMessage(Main.pre + " §5" + t.getName() + " §aist im selben Netzwerk angemeldet: §e" + t.getAddress().getAddress().getHostAddress());
+                                } else if (targpermexd) {
+                                    p.sendMessage(Main.pre + " §8" + t.getName() + " §aist im selben Netzwerk angemeldet: §e" + t.getAddress().getAddress().getHostAddress());
+                                }
                             } else {
-                                p.sendMessage(Main.pre + " §a" + t.getName() + "'s IP-Adresse: §e"
-                                        + t.getAddress().getAddress().getHostAddress());
+                                boolean targpermexo = PermissionsEx.getUser(t).inGroup("Owner");
+                                boolean targpermexv = PermissionsEx.getUser(t).inGroup("Vice");
+                                boolean targpermexf = PermissionsEx.getUser(t).inGroup("Fellow");
+                                boolean targpermexd = PermissionsEx.getUser(t).inGroup("default");
+                                if (targpermexo) {
+                                    p.sendMessage(Main.pre + " §4§l" + t.getName() + "§a's IP-Adresse: §e" + t.getAddress().getAddress().getHostAddress());
+                                } else if (targpermexv) {
+                                    p.sendMessage(Main.pre + " §c" + t.getName() + "§a's IP-Adresse: §e" + t.getAddress().getAddress().getHostAddress());
+                                } else if (targpermexf) {
+                                    p.sendMessage(Main.pre + " §5" + t.getName() + "§a's IP-Adresse: §e" + t.getAddress().getAddress().getHostAddress());
+                                } else if (targpermexd) {
+                                    p.sendMessage(Main.pre + " §8" + t.getName() + "§a's IP-Adresse: §e" + t.getAddress().getAddress().getHostAddress());
+                                }
                             }
                         } catch (NullPointerException e) {
                             p.sendMessage(Main.pre + " §cSpieler nicht gefunden!");
@@ -67,15 +99,47 @@ public class CMD_HostAddress implements CommandExecutor {
                     try {
                         Player t = Bukkit.getServer().getPlayer(args[0]);
                         if (t.getAddress().getAddress().getHostAddress().equalsIgnoreCase("127.0.0.1")) {
-                            Bukkit.getConsoleSender().sendMessage(Main.pre + " §a" + t.getName()
-                                    + " §aist local angemeldet: §e" + t.getAddress().getAddress().getHostAddress());
+                            boolean targpermexo = PermissionsEx.getUser(t).inGroup("Owner");
+                            boolean targpermexv = PermissionsEx.getUser(t).inGroup("Vice");
+                            boolean targpermexf = PermissionsEx.getUser(t).inGroup("Fellow");
+                            boolean targpermexd = PermissionsEx.getUser(t).inGroup("default");
+                            if (targpermexo) {
+                                Bukkit.getConsoleSender().sendMessage(Main.pre + " §4§l" + t.getName() + " §aist local angemeldet: §e" + t.getAddress().getAddress().getHostAddress());
+                            } else if (targpermexv) {
+                                Bukkit.getConsoleSender().sendMessage(Main.pre + " §c" + t.getName() + " §aist local angemeldet: §e" + t.getAddress().getAddress().getHostAddress());
+                            } else if (targpermexf) {
+                                Bukkit.getConsoleSender().sendMessage(Main.pre + " §5" + t.getName() + " §aist local angemeldet: §e" + t.getAddress().getAddress().getHostAddress());
+                            } else if (targpermexd) {
+                                Bukkit.getConsoleSender().sendMessage(Main.pre + " §8" + t.getName() + " §aist local angemeldet: §e" + t.getAddress().getAddress().getHostAddress());
+                            }
                         } else if (t.getAddress().getAddress().getHostAddress().startsWith("192.168")) {
-                            Bukkit.getConsoleSender()
-                                    .sendMessage(Main.pre + " §a" + t.getName() + " §aist im selben Netzwerk angemeldet: §e"
-                                            + t.getAddress().getAddress().getHostAddress());
+                            boolean targpermexo = PermissionsEx.getUser(t).inGroup("Owner");
+                            boolean targpermexv = PermissionsEx.getUser(t).inGroup("Vice");
+                            boolean targpermexf = PermissionsEx.getUser(t).inGroup("Fellow");
+                            boolean targpermexd = PermissionsEx.getUser(t).inGroup("default");
+                            if (targpermexo) {
+                                Bukkit.getConsoleSender().sendMessage(Main.pre + " §4§l" + t.getName() + " §aist im selben Netzwerk angemeldet: §e" + t.getAddress().getAddress().getHostAddress());
+                            } else if (targpermexv) {
+                                Bukkit.getConsoleSender().sendMessage(Main.pre + " §c" + t.getName() + " §aist im selben Netzwerk angemeldet: §e" + t.getAddress().getAddress().getHostAddress());
+                            } else if (targpermexf) {
+                                Bukkit.getConsoleSender().sendMessage(Main.pre + " §5" + t.getName() + " §aist im selben Netzwerk angemeldet: §e" + t.getAddress().getAddress().getHostAddress());
+                            } else if (targpermexd) {
+                                Bukkit.getConsoleSender().sendMessage(Main.pre + " §8" + t.getName() + " §aist im selben Netzwerk angemeldet: §e" + t.getAddress().getAddress().getHostAddress());
+                            }
                         } else {
-                            Bukkit.getConsoleSender().sendMessage(Main.pre + " §a" + t.getName() + "'s IP-Adresse: §e"
-                                    + t.getAddress().getAddress().getHostAddress());
+                            boolean targpermexo = PermissionsEx.getUser(t).inGroup("Owner");
+                            boolean targpermexv = PermissionsEx.getUser(t).inGroup("Vice");
+                            boolean targpermexf = PermissionsEx.getUser(t).inGroup("Fellow");
+                            boolean targpermexd = PermissionsEx.getUser(t).inGroup("default");
+                            if (targpermexo) {
+                                Bukkit.getConsoleSender().sendMessage(Main.pre + " §4§l" + t.getName() + "§a's IP-Adresse: §e" + t.getAddress().getAddress().getHostAddress());
+                            } else if (targpermexv) {
+                                Bukkit.getConsoleSender().sendMessage(Main.pre + " §c" + t.getName() + "§a's IP-Adresse: §e" + t.getAddress().getAddress().getHostAddress());
+                            } else if (targpermexf) {
+                                Bukkit.getConsoleSender().sendMessage(Main.pre + " §5" + t.getName() + "§a's IP-Adresse: §e" + t.getAddress().getAddress().getHostAddress());
+                            } else if (targpermexd) {
+                                Bukkit.getConsoleSender().sendMessage(Main.pre + " §8" + t.getName() + "§a's IP-Adresse: §e" + t.getAddress().getAddress().getHostAddress());
+                            }
                         }
                     } catch (NullPointerException e) {
                         Bukkit.getConsoleSender().sendMessage(Main.pre + " §cSpieler nicht gefunden!");

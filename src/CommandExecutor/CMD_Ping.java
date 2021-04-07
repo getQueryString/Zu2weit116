@@ -17,22 +17,36 @@ public class CMD_Ping implements CommandExecutor {
         if (cmd.getName().equalsIgnoreCase("ping")) {
             if (sender instanceof Player) {
                 Player p = (Player) sender;
-                if (PermissionsEx.getUser(p).inGroup("Owner") || PermissionsEx.getUser(p).inGroup("Vice")
-                        || PermissionsEx.getUser(p).inGroup("Fellow")) {
+                boolean permexo = PermissionsEx.getUser(p).inGroup("Owner");
+                boolean permexv = PermissionsEx.getUser(p).inGroup("Vice");
+                boolean permexf = PermissionsEx.getUser(p).inGroup("Fellow");
+                if (permexo || permexv || permexf) {
                     if (args.length == 0) {
                         int ping = (((CraftPlayer) p).getHandle()).ping;
                         p.sendMessage(Main.pre + " §aDein Ping: §e" + ping + "ms.");
                     } else if (args.length >= 2) {
                         p.sendMessage("§bBenutze: §f/§cp§fing §a<Player>");
                     }
-                    if (args.length == 1) {//   /args[0] args[1] args[2] args[3]
+                    if (args.length == 1) {
                         try {
                             Player t = Bukkit.getServer().getPlayer(args[0]);
                             int ping = (((CraftPlayer) t).getHandle()).ping;
                             if (t.getPlayer() == p.getPlayer()) {
                                 p.sendMessage(Main.pre + " §aDein Ping: §e" + ping + "ms.");
                             } else {
-                                p.sendMessage(Main.pre + " §a" + t.getName() + "'s Ping: §e" + ping + "ms.");
+                                boolean targpermexo = PermissionsEx.getUser(t).inGroup("Owner");
+                                boolean targpermexv = PermissionsEx.getUser(t).inGroup("Vice");
+                                boolean targpermexf = PermissionsEx.getUser(t).inGroup("Fellow");
+                                boolean targpermexd = PermissionsEx.getUser(t).inGroup("default");
+                                if (targpermexo) {
+                                    p.sendMessage(Main.pre + " §4§l" + t.getName() + "§a's Ping: §e" + ping + "ms.");
+                                } else if (targpermexv) {
+                                    p.sendMessage(Main.pre + " §c" + t.getName() + "§a's Ping: §e" + ping + "ms.");
+                                } else if (targpermexf) {
+                                    p.sendMessage(Main.pre + " §5" + t.getName() + "§a's Ping: §e" + ping + "ms.");
+                                } else if (targpermexd) {
+                                    p.sendMessage(Main.pre + " §8" + t.getName() + "§a's Ping: §e" + ping + "ms.");
+                                }
                             }
                         } catch (NullPointerException e) {
                             p.sendMessage(Main.pre + " §cSpieler nicht gefunden!");
@@ -48,8 +62,19 @@ public class CMD_Ping implements CommandExecutor {
                     try {
                         Player t = Bukkit.getServer().getPlayer(args[0]);
                         int ping = (((CraftPlayer) t).getHandle()).ping;
-                        Bukkit.getConsoleSender()
-                                .sendMessage(Main.pre + " §a" + t.getName() + "'s Ping: §e" + ping + "ms.");
+                        boolean targpermexo = PermissionsEx.getUser(t).inGroup("Owner");
+                        boolean targpermexv = PermissionsEx.getUser(t).inGroup("Vice");
+                        boolean targpermexf = PermissionsEx.getUser(t).inGroup("Fellow");
+                        boolean targpermexd = PermissionsEx.getUser(t).inGroup("default");
+                        if (targpermexo) {
+                            Bukkit.getConsoleSender().sendMessage(Main.pre + " §4§l" + t.getName() + "§a's Ping: §e" + ping + "ms.");
+                        } else if (targpermexv) {
+                            Bukkit.getConsoleSender().sendMessage(Main.pre + " §c" + t.getName() + "§a's Ping: §e" + ping + "ms.");
+                        } else if (targpermexf) {
+                            Bukkit.getConsoleSender().sendMessage(Main.pre + " §5" + t.getName() + "§a's Ping: §e" + ping + "ms.");
+                        } else if (targpermexd) {
+                            Bukkit.getConsoleSender().sendMessage(Main.pre + " §8" + t.getName() + "§a's Ping: §e" + ping + "ms.");
+                        }
                     } catch (NullPointerException e) {
                         Bukkit.getConsoleSender().sendMessage(Main.pre + " §cSpieler nicht gefunden!");
                     }
