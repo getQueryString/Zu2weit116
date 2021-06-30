@@ -305,20 +305,22 @@ public class AntiBuild_Events implements Listener {
         long time = Bukkit.getServer().getWorld("world").getTime();
         boolean storm = Bukkit.getServer().getWorld("world").hasStorm();
         for (Entity entity : p.getNearbyEntities(8, 5, 8)) {
-            if (entity instanceof Creature) {
-                Bukkit.broadcastMessage("§6Mob ist in der Nähe");
-                e.setCancelled(true);
-            } else if (time >= 12542 && time <= 23459 || storm) {
-                if (permexo) {
-                    Bukkit.broadcastMessage("§4§l" + p.getName() + " §fist schlafen gegangen.");
-                    break;
-                } else if (permexv) {
-                    Bukkit.broadcastMessage("§c" + p.getName() + " §fist schlafen gegangen.");
-                    break;
-                } else if (permexf) {
-                    Bukkit.broadcastMessage("§5" + p.getName() + " §fist schlafen gegangen.");
-                    break;
+            if (!(entity instanceof Creature)) {
+                if (time >= 12542 && time <= 23459 || storm) {
+                    if (permexo) {
+                        Bukkit.broadcastMessage("§4§l" + p.getName() + " §fist schlafen gegangen.");
+                        break;
+                    } else if (permexv) {
+                        Bukkit.broadcastMessage("§c" + p.getName() + " §fist schlafen gegangen.");
+                        break;
+                    } else if (permexf) {
+                        Bukkit.broadcastMessage("§5" + p.getName() + " §fist schlafen gegangen.");
+                        break;
+                    }
                 }
+            } else {
+                Bukkit.broadcastMessage("§c" + entity + " §6ist in der Nähe");
+                e.setCancelled(true);
             }
         }
     }
