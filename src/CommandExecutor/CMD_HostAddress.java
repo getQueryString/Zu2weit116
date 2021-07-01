@@ -13,7 +13,7 @@ import ru.tehkode.permissions.bukkit.PermissionsEx;
 
 public class CMD_HostAddress implements CommandExecutor {
 
-    String color = null;
+    String playerColor = null;
 
     public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
         if (cmd.getName().equalsIgnoreCase("ip")) {
@@ -37,48 +37,35 @@ public class CMD_HostAddress implements CommandExecutor {
                     if (args.length == 1)
                         try {
                             Player t = Bukkit.getServer().getPlayer(args[0]);
+
+                            PermissionUser permexPlayer = PermissionsEx.getUser(t);
+                            if (permexPlayer.inGroup("Owner")) playerColor = "§4§l";
+                            else if (permexPlayer.inGroup("Vice")) playerColor = "§c";
+                            else if (permexPlayer.inGroup("Fellow")) playerColor = "§5";
+                            else if (permexPlayer.inGroup("default")) playerColor = "§8";
+
                             if (t.getPlayer() == p.getPlayer()) {
                                 if (t.getAddress().getAddress().getHostAddress().equalsIgnoreCase("127.0.0.1")) {
                                     p.sendMessage(Main.pre + " §aDu bist lokal angemeldet: §e"
                                             + p.getAddress().getAddress().getHostAddress());
-                                } else if (t.getPlayer() == p.getPlayer()) {
-                                    if (t.getAddress().getAddress().getHostAddress().startsWith("192.168")) {
-                                        p.sendMessage(Main.pre + " §aDu bist im selben Netzwerk angemeldet: §e"
-                                                + p.getAddress().getAddress().getHostAddress());
-                                    }
+                                } else if (t.getAddress().getAddress().getHostAddress().startsWith("192.168")) {
+                                    p.sendMessage(Main.pre + " §aDu bist im selben Netzwerk angemeldet: §e"
+                                            + p.getAddress().getAddress().getHostAddress());
                                 }
                             } else if (t.getAddress().getAddress().getHostAddress().equalsIgnoreCase("127.0.0.1")) {
 
-                                PermissionUser user = PermissionsEx.getUser(t);
-                                if (user.inGroup("Owner")) color = "§4§l";
-                                else if (user.inGroup("Vice")) color = "§c";
-                                else if (user.inGroup("Fellow")) color = "§5";
-                                else if (user.inGroup("default")) color = "§8";
-
-                                if (color != null) {
-                                    p.sendMessage(Main.pre + " " + color + t.getName() + " §aist lokal angemeldet: §e" + t.getAddress().getAddress().getHostAddress());
+                                if (playerColor != null) {
+                                    p.sendMessage(Main.pre + " " + playerColor + t.getName() + " §aist lokal angemeldet: §e" + t.getAddress().getAddress().getHostAddress());
                                 }
                             } else if (t.getAddress().getAddress().getHostAddress().startsWith("192.168")) {
 
-                                PermissionUser user = PermissionsEx.getUser(t);
-                                if (user.inGroup("Owner")) color = "§4§l";
-                                else if (user.inGroup("Vice")) color = "§c";
-                                else if (user.inGroup("Fellow")) color = "§5";
-                                else if (user.inGroup("default")) color = "§8";
-
-                                if (color != null) {
-                                    p.sendMessage(Main.pre + " " + color + t.getName() + " §aist im selben Netzwerk angemeldet: §e" + t.getAddress().getAddress().getHostAddress());
+                                if (playerColor != null) {
+                                    p.sendMessage(Main.pre + " " + playerColor + t.getName() + " §aist im selben Netzwerk angemeldet: §e" + t.getAddress().getAddress().getHostAddress());
                                 }
                             } else {
 
-                                PermissionUser user = PermissionsEx.getUser(t);
-                                if (user.inGroup("Owner")) color = "§4§l";
-                                else if (user.inGroup("Vice")) color = "§c";
-                                else if (user.inGroup("Fellow")) color = "§5";
-                                else if (user.inGroup("default")) color = "§8";
-
-                                if (color != null) {
-                                    p.sendMessage(Main.pre + " " + color + t.getName() + "§a's IP-Adresse: §e" + t.getAddress().getAddress().getHostAddress());
+                                if (playerColor != null) {
+                                    p.sendMessage(Main.pre + " " + playerColor + t.getName() + "§a's IP-Adresse: §e" + t.getAddress().getAddress().getHostAddress());
                                 }
                             }
                         } catch (NullPointerException e) {
@@ -93,38 +80,27 @@ public class CMD_HostAddress implements CommandExecutor {
                 if (args.length == 1) {
                     try {
                         Player t = Bukkit.getServer().getPlayer(args[0]);
+
+                        PermissionUser permexPlayer = PermissionsEx.getUser(t);
+                        if (permexPlayer.inGroup("Owner")) playerColor = "§4§l";
+                        else if (permexPlayer.inGroup("Vice")) playerColor = "§c";
+                        else if (permexPlayer.inGroup("Fellow")) playerColor = "§5";
+                        else if (permexPlayer.inGroup("default")) playerColor = "§8";
+
                         if (t.getAddress().getAddress().getHostAddress().equalsIgnoreCase("127.0.0.1")) {
 
-                            PermissionUser user = PermissionsEx.getUser(t);
-                            if (user.inGroup("Owner")) color = "§4§l";
-                            else if (user.inGroup("Vice")) color = "§c";
-                            else if (user.inGroup("Fellow")) color = "§5";
-                            else if (user.inGroup("default")) color = "§8";
-
-                            if (color != null) {
-                                Bukkit.getConsoleSender().sendMessage(Main.pre + " " + color + t.getName() + " §aist lokal angemeldet: §e" + t.getAddress().getAddress().getHostAddress());
+                            if (playerColor != null) {
+                                Bukkit.getConsoleSender().sendMessage(Main.pre + " " + playerColor + t.getName() + " §aist lokal angemeldet: §e" + t.getAddress().getAddress().getHostAddress());
                             }
                         } else if (t.getAddress().getAddress().getHostAddress().startsWith("192.168")) {
 
-                            PermissionUser user = PermissionsEx.getUser(t);
-                            if (user.inGroup("Owner")) color = "§4§l";
-                            else if (user.inGroup("Vice")) color = "§c";
-                            else if (user.inGroup("Fellow")) color = "§5";
-                            else if (user.inGroup("default")) color = "§8";
-
-                            if (color != null) {
-                                Bukkit.getConsoleSender().sendMessage(Main.pre + " " + color + t.getName() + " §aist im selben Netzwerk angemeldet: §e" + t.getAddress().getAddress().getHostAddress());
+                            if (playerColor != null) {
+                                Bukkit.getConsoleSender().sendMessage(Main.pre + " " + playerColor + t.getName() + " §aist im selben Netzwerk angemeldet: §e" + t.getAddress().getAddress().getHostAddress());
                             }
                         } else {
 
-                            PermissionUser user = PermissionsEx.getUser(t);
-                            if (user.inGroup("Owner")) color = "§4§l";
-                            else if (user.inGroup("Vice")) color = "§c";
-                            else if (user.inGroup("Fellow")) color = "§5";
-                            else if (user.inGroup("default")) color = "§8";
-
-                            if (color != null) {
-                                Bukkit.getConsoleSender().sendMessage(Main.pre + " " + color + t.getName() + "§a's IP-Adresse: §e" + t.getAddress().getAddress().getHostAddress());
+                            if (playerColor != null) {
+                                Bukkit.getConsoleSender().sendMessage(Main.pre + " " + playerColor + t.getName() + "§a's IP-Adresse: §e" + t.getAddress().getAddress().getHostAddress());
                             }
                         }
                     } catch (NullPointerException e) {
