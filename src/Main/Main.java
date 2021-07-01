@@ -74,7 +74,6 @@ public class Main extends JavaPlugin implements Listener {
         getCommand("clearchat").setExecutor(new CMD_ClearChat());
         getCommand("build").setExecutor(new AntiBuild());
         getCommand("stop").setExecutor(new CMD_Stop());
-        getCommand("lastfix").setExecutor(new CMD_LastFix());
         getCommand("sharelocation").setExecutor(new CMD_ShareLocation());
         getCommand("loc").setExecutor(new CMD_LocationQuery());
         getCommand("ip").setExecutor(new CMD_HostAddress());

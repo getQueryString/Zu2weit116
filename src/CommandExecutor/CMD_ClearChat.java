@@ -13,6 +13,9 @@ import ru.tehkode.permissions.PermissionUser;
 import ru.tehkode.permissions.bukkit.PermissionsEx;
 
 public class CMD_ClearChat implements Listener, CommandExecutor {
+
+    String playerColor = null;
+
     public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
         if (sender instanceof Player) {
             Player p = (Player) sender;
@@ -23,16 +26,12 @@ public class CMD_ClearChat implements Listener, CommandExecutor {
                     for (Player all : Bukkit.getOnlinePlayers())
                         all.sendMessage("");
                 }
-                if (p.isOp()) {
-                    Bukkit.broadcastMessage(
-                            Main.pre + " §7Der Chat wurde von §f§l" + p.getName() + " §7geleert.");
-                } else if (permexo) {
-                    Bukkit.broadcastMessage(
-                            Main.pre + " §7Der Chat wurde von §4§l" + p.getName() + " §7geleert.");
-                } else {
-                    Bukkit.broadcastMessage(
-                            Main.pre + " §7Der Chat wurde von §c" + p.getName() + " §7geleert.");
-                }
+                PermissionUser permexPlayer = PermissionsEx.getUser(p);
+                if (permexPlayer.inGroup("Owner")) playerColor = "§4§l";
+                else if (p.isOp()) playerColor = "§f§l";
+                else playerColor = "§c";
+
+                Bukkit.broadcastMessage(Main.pre + " §7Der Chat wurde von " + playerColor + p.getName() + " §7geleert.");
                 return true;
             }
             p.sendMessage(Main.noperm);

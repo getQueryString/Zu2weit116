@@ -24,7 +24,6 @@ public class onDeath implements Listener {
         Player k = e.getEntity().getKiller();
 
         PermissionUser permexPlayer = PermissionsEx.getUser(p);
-
         if (permexPlayer.inGroup("Owner")) playerColor = "§4§l";
         else if (permexPlayer.inGroup("Vice")) playerColor = "§c";
         else if (permexPlayer.inGroup("Fellow")) playerColor = "§5";

@@ -27,10 +27,6 @@ commands:
     aliases:
       - b
 
-  lastfix:
-    aliases:
-      - lf
-
   sharelocation:
     aliases:
       - sl
