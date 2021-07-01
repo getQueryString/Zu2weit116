@@ -23,6 +23,6 @@ public class PlayerChatEvent implements Listener {
         if (PermissionsEx.getUser(p).inGroup("Owner"))
             e.setFormat("§4§lChief | " + p.getName() + " §8| §a§l" + msg);
         if (p.isOp())
-            e.setFormat("§0§lOperator | " + p.getName() + " §8| §a§l" + msg);
+            e.setFormat("§f§lOperator | §4§l" + p.getName() + " §8| §a§l" + msg);
     }
 }

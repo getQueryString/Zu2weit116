@@ -10,66 +10,54 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.event.player.PlayerKickEvent;
 import org.bukkit.event.player.PlayerQuitEvent;
+import ru.tehkode.permissions.PermissionUser;
 import ru.tehkode.permissions.bukkit.PermissionsEx;
 
 public class JoinLeaveKick implements Listener {
+
+    String color = null;
+
     @EventHandler
     public void onJoin(PlayerJoinEvent e) {
         Player p = e.getPlayer();
-        if (PermissionsEx.getUser(p).inGroup("Owner")) {
+        PermissionUser user = PermissionsEx.getUser(p);
+        if (user.inGroup("Owner")) color = "§4§l";
+        else if (user.inGroup("Vice")) color = "§c";
+        else if (user.inGroup("Fellow")) color = "§5";
+        else if (user.inGroup("default")) color = "§8";
+
+        if (color != null) {
             p.sendMessage("");
-            e.setJoinMessage(Main.join + " §4§l" + p.getName() + " §6ist dem Spiel beigetreten.");
-        } else if (p.isOp()) {
-            p.sendMessage("");
-            e.setJoinMessage(Main.join + " §f§l" + p.getName() + " §6ist dem Spiel beigetreten.");
-        } else if (PermissionsEx.getUser(p).inGroup("Vice")) {
-            p.sendMessage("");
-            e.setJoinMessage(Main.join + " §c" + p.getName() + " §6ist dem Spiel beigetreten.");
-        } else if (PermissionsEx.getUser(p).inGroup("Fellow")) {
-            p.sendMessage("");
-            e.setJoinMessage(Main.join + " §5" + p.getName() + " §6ist dem Spiel beigetreten.");
-        } else {
-            p.sendMessage("");
-            e.setJoinMessage(Main.join + " §8" + p.getName() + " §6ist dem Spiel beigetreten.");
+            e.setJoinMessage(Main.join + " " + color + p.getName() + " §6ist dem Spiel beigetreten.");
         }
     }
 
     @EventHandler
     public void onQuit(PlayerQuitEvent e) {
         Player p = e.getPlayer();
-        if (PermissionsEx.getUser(p).inGroup("Owner")) {
-            e.setQuitMessage(Main.leave + " §4§l" + p.getName() + " §6hat das Spiel verlassen.");
-        } else if (p.isOp()) {
-            e.setQuitMessage(Main.leave + " §f§l" + p.getName() + " §6hat das Spiel verlassen.");
-        } else if (PermissionsEx.getUser(p).inGroup("Vice")) {
-            e.setQuitMessage(Main.leave + " §c" + p.getName() + " §6hat das Spiel verlassen.");
-        } else if (PermissionsEx.getUser(p).inGroup("Fellow")) {
-            e.setQuitMessage(Main.leave + " §5" + p.getName() + " §6hat das Spiel verlassen.");
-        } else {
-            e.setQuitMessage(Main.leave + " §8" + p.getName() + " §6hat das Spiel verlassen.");
+        PermissionUser user = PermissionsEx.getUser(p);
+        if (user.inGroup("Owner")) color = "§4§l";
+        else if (user.inGroup("Vice")) color = "§c";
+        else if (user.inGroup("Fellow")) color = "§5";
+        else if (user.inGroup("default")) color = "§8";
+
+        if (color != null) {
+            e.setQuitMessage(Main.leave + " " + color + p.getName() + " §6hat das Spiel verlassen.");
         }
     }
 
     @EventHandler
     public void onKick(PlayerKickEvent e) {
         Player p = e.getPlayer();
-        if (PermissionsEx.getUser(p).inGroup("Owner")) {
-            Bukkit.getConsoleSender()
-                    .sendMessage(Main.kick + " §4§l" + p.getName() + " §cwurde aus dem Spiel geworfen.");
-            e.setLeaveMessage(Main.kick + " §4§l" + p.getName() + " §cwurde aus dem Spiel geworfen.");
-        } else if (p.isOp()) {
-            Bukkit.getConsoleSender()
-                    .sendMessage(Main.kick + " §f§l" + p.getName() + " §cwurde aus dem Spiel geworfen.");
-            e.setLeaveMessage(Main.kick + " §f§l" + p.getName() + " §cwurde aus dem Spiel geworfen.");
-        } else if (PermissionsEx.getUser(p).inGroup("Vice")) {
-            Bukkit.getConsoleSender().sendMessage(Main.kick + " §c" + p.getName() + " §cwurde aus dem Spiel geworfen.");
-            e.setLeaveMessage(Main.kick + " §f" + p.getName() + " §cwurde aus dem Spiel geworfen.");
-        } else if (PermissionsEx.getUser(p).inGroup("Fellow")) {
-            Bukkit.getConsoleSender().sendMessage(Main.kick + " §5" + p.getName() + " §cwurde aus dem Spiel geworfen.");
-            e.setLeaveMessage(Main.kick + " §5" + p.getName() + " aus dem Spiel geworfen.");
-        } else {
-            Bukkit.getConsoleSender().sendMessage(Main.kick + " §8" + p.getName() + " §cwurde aus dem Spiel geworfen.");
-            e.setLeaveMessage(Main.kick + " §8" + p.getName() + " §cwurde aus dem Spiel geworfen.");
+        PermissionUser user = PermissionsEx.getUser(p);
+        if (user.inGroup("Owner")) color = "§4§l";
+        else if (user.inGroup("Vice")) color = "§c";
+        else if (user.inGroup("Fellow")) color = "§5";
+        else if (user.inGroup("default")) color = "§8";
+
+        if (color != null) {
+            Bukkit.getConsoleSender().sendMessage(Main.kick + " " + color + p.getName() + " §cwurde aus dem Spiel geworfen.");
+            e.setLeaveMessage(Main.kick + " " + color + p.getName() + " §cwurde aus dem Spiel geworfen.");
         }
     }
 }
