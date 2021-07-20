@@ -37,3 +37,4 @@ commands:
   ip:
   starttimer:
   stoptimer:
+  spypos:

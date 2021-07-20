@@ -32,8 +32,6 @@ public class Main extends JavaPlugin implements Listener {
     // Strings
     public static String noperm = "§7[§bZu2weit§7]  §4§lKeine Rechte!";
     public static String pre = "§7[§bZu2weit§7]";
-    public static String fix = "§7[§eBugFixes§7]§f: ";
-    public static String bug = "§7[§cBugs§7]§f: ";
     public static String join = "§a[+]";
     public static String leave = "§c[-]";
     public static String kick = "§4[-]";
@@ -80,6 +78,7 @@ public class Main extends JavaPlugin implements Listener {
         getCommand("starttimer").setExecutor(as);
         getCommand("stoptimer").setExecutor(as);
         getCommand("rl").setExecutor(new CMD_Reload());
+        getCommand("spypos").setExecutor(new AntiBuild_Events());
 
         getConsoleSender().sendMessage("§aDas §3Zu2weit-Plugin §awurde erfolgreich aktiviert!");
         if (Bukkit.getOnlinePlayers().size() == 0) {

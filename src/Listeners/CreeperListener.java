@@ -25,7 +25,7 @@ public class CreeperListener implements Listener {
 
     @EventHandler
     public void onEntityExplode(EntityExplodeEvent e) {
-        float eP = 1.5F;
+        float eP = 1.5F;    // Standard: 3.0F
         e.setCancelled(true);
         e.getLocation().getWorld().createExplosion(e.getLocation(), eP);
     }

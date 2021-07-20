@@ -15,26 +15,22 @@ public class CMD_Reload implements CommandExecutor {
     public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
         if (sender instanceof ConsoleCommandSender || sender.isOp()) {
             if (cmd.getName().equalsIgnoreCase("rl")) {
-                if (Bukkit.getOnlinePlayers().size() >= 1) {
+                if (Bukkit.getOnlinePlayers().size() >= 0) {
                     for (Player all : Bukkit.getOnlinePlayers()) {
                         if (all.hasPermission("zz.see.reload")) {
                             Bukkit.broadcastMessage(Main.Main.pre + " §cReloading...");
                             break;
                         }
                     }
-                } else if (Bukkit.getOnlinePlayers().size() == 0) {
-                    sender.sendMessage(Main.Main.pre + " §cReloading...");
                 }
                 Bukkit.reload();
-                if (Bukkit.getOnlinePlayers().size() >= 1) {
+                if (Bukkit.getOnlinePlayers().size() >= 0) {
                     for (Player all : Bukkit.getOnlinePlayers()) {
                         if (all.hasPermission("zz.see.reload")) {
                             Bukkit.broadcastMessage(Main.Main.pre + " §aReload complete.");
                             break;
                         }
                     }
-                } else if (Bukkit.getOnlinePlayers().size() == 0) {
-                    sender.sendMessage(Main.Main.pre + " §aReload complete.");
                 }
             }
         } else {
