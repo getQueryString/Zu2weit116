@@ -15,13 +15,14 @@ import ru.tehkode.permissions.bukkit.PermissionsEx;
 public class CMD_SpyPos implements CommandExecutor {
 
     String targetColor = null;
+    String playerColor = null;
     String targetWorld = null;
 
     public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
         if (cmd.getName().equalsIgnoreCase("spypos")) {
             if (sender instanceof Player) {
                 Player p = (Player) sender;
-                if (PermissionsEx.getUser(p).inGroup("Owner") || PermissionsEx.getUser(p).inGroup("Vice")) {
+                if (PermissionsEx.getUser(p).inGroup("Owner") || PermissionsEx.getUser(p).inGroup("Vice") || p.isOp()) {
 
                     if (args.length == 0) {
                         p.sendMessage("§bBenutze: §f/§cspypos §a<Player>");
@@ -33,10 +34,18 @@ public class CMD_SpyPos implements CommandExecutor {
                                 return false;
                             }
                             PermissionUser permexTarget = PermissionsEx.getUser(t);
-                            if (permexTarget.inGroup("Owner")) targetColor = "§4§l";
+                            if (t.isOp()) targetColor = "§f§l";
+                            else if (permexTarget.inGroup("Owner")) targetColor = "§4§l";
                             else if (permexTarget.inGroup("Vice")) targetColor = "§c";
                             else if (permexTarget.inGroup("Fellow")) targetColor = "§5";
                             else if (permexTarget.inGroup("default")) targetColor = "§8";
+
+                            PermissionUser permexPlayer = PermissionsEx.getUser(p);
+                            if (p.isOp()) playerColor = "§f§l";
+                            else if (permexPlayer.inGroup("Owner")) playerColor = "§4§l";
+                            else if (permexPlayer.inGroup("Vice")) playerColor = "§c";
+                            else if (permexPlayer.inGroup("Fellow")) playerColor = "§5";
+                            else if (permexPlayer.inGroup("default")) playerColor = "§8";
 
                             if (t.getWorld().getName().equalsIgnoreCase("world")) targetWorld = "§a";
                             else if (t.getWorld().getName().equalsIgnoreCase("world_nether") || t.getWorld().getName().equalsIgnoreCase("world_the_end"))
@@ -52,6 +61,7 @@ public class CMD_SpyPos implements CommandExecutor {
                             // public void run() {
                             p.sendMessage("§7[" + targetColor + t.getName() + "§7]\n" + targetWorld + t.getWorld().getName()
                                     + "§7» §fX:§7" + X + " §fY:§7" + Y + " §fZ:§7" + Z);
+                            t.sendMessage(Main.pre + " " + playerColor + p.getName() + " §chat deine Position ausgelesen");
                             //}
                             //}.runTaskTimer(context, 20, 0);
                         } catch (NullPointerException e) {
@@ -88,6 +98,7 @@ public class CMD_SpyPos implements CommandExecutor {
                         // public void run() {
                         Bukkit.getConsoleSender().sendMessage("§7[" + targetColor + t.getName() + "§7]\n" + targetWorld + t.getWorld().getName()
                                 + "§7» §fX:§7" + X + " §fY:§7" + Y + " §fZ:§7" + Z);
+                        t.sendMessage(Main.pre + " §b" + Bukkit.getConsoleSender().getName() + " §chat deine Position ausgelesen");
                         //}
                         //}.runTaskTimer(context, 20, 0);
                     } catch (NullPointerException e) {

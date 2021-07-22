@@ -40,7 +40,7 @@ public class CMD_ClearChat implements Listener, CommandExecutor {
                 for (Player all : Bukkit.getOnlinePlayers())
                     all.sendMessage("");
             }
-            Bukkit.broadcastMessage(Main.pre + " §7Der Chat wurde von §bConsole §7geleert.");
+            Bukkit.broadcastMessage(Main.pre + " §7Der Chat wurde von §b" + Bukkit.getConsoleSender().getName() + " §7geleert.");
         }
         return false;
     }
