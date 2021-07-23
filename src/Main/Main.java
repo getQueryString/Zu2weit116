@@ -79,6 +79,7 @@ public class Main extends JavaPlugin implements Listener {
         getCommand("stoptimer").setExecutor(as);
         getCommand("rl").setExecutor(new CMD_Reload());
         getCommand("spypos").setExecutor(new CMD_SpyPos());
+        getCommand("getPlayers").setExecutor(new CMD_getPlayersOnWorlds());
 
         getConsoleSender().sendMessage("§aDas §3Zu2weit-Plugin §awurde erfolgreich aktiviert!");
         if (Bukkit.getOnlinePlayers().size() == 0) {

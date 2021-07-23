@@ -36,10 +36,11 @@ public class CreeperListener implements Listener {
             @Override
             public void run() {
 
-                if (Bukkit.getOnlinePlayers().size() >= 1) {
+                if (Bukkit.getWorld("world").getPlayers().size() >= 1) {
+                    //Bukkit.getConsoleSender().sendMessage(Bukkit.getWorld("world").getLivingEntities().size() + "");
                     Bukkit.getServer().dispatchCommand(getConsoleSender(), "tp @e[type=creeper] ~ -2 ~");
                 }
             }
-        }.runTaskTimer(plugin, 1200, 1200);
+        }.runTaskTimer(plugin, 100, 100); // 1200
     }
 }
