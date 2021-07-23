@@ -4,12 +4,15 @@ package Listeners;
 
 import Main.Main;
 import org.bukkit.Bukkit;
+import org.bukkit.entity.Creeper;
+import org.bukkit.entity.LivingEntity;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.entity.EntityExplodeEvent;
 import org.bukkit.plugin.Plugin;
 import org.bukkit.scheduler.BukkitRunnable;
 
+import static org.bukkit.Bukkit.createWorld;
 import static org.bukkit.Bukkit.getConsoleSender;
 
 public class CreeperListener implements Listener {
@@ -36,11 +39,14 @@ public class CreeperListener implements Listener {
             @Override
             public void run() {
 
-                if (Bukkit.getWorld("world").getPlayers().size() >= 1) {
-                    //Bukkit.getConsoleSender().sendMessage(Bukkit.getWorld("world").getLivingEntities().size() + "");
+                int creeperCount = 0;
+                for (LivingEntity e : Bukkit.getWorld("world").getLivingEntities()) {
+                    if (e instanceof Creeper) creeperCount++;
+                }
+                if (Bukkit.getWorld("world").getPlayers().size() >= 1 && creeperCount >= 1) {
                     Bukkit.getServer().dispatchCommand(getConsoleSender(), "tp @e[type=creeper] ~ -2 ~");
                 }
             }
-        }.runTaskTimer(plugin, 100, 100); // 1200
+        }.runTaskTimer(plugin, 1200, 1200);
     }
 }
