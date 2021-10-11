@@ -1,6 +1,7 @@
 @echo off
 chcp 65001>nul
-"C:\Program Files (x86)\Minecraft Launcher\runtime\jre-x64\bin\java.exe" -Xms512M -Xmx2560M -jar paper_server-1.16.5-574.jar nogui
+
+"C:\Program Files (x86)\Minecraft Launcher\runtime\jre-x64\bin\java.exe" -Xms512M -Xmx2560M -jar paper_server-1.16.5-788.jar nogui
 cls
 color 4
 echo.
@@ -18,91 +19,86 @@ goto exit
 
 :choiceY
 echo Backup wird erstellt...
+echo.
 rem world
-if exist "\\Fritz-nas\fritz.nas\Zu2weit\world" (
+if exist "\\192.168.178.62\Fin\Zu2weit\world" (
 color c
-echo \\Fritz-nas\fritz.nas\Zu2weit\world wird gelöscht
-rd "\\Fritz-nas\fritz.nas\Zu2weit\world" /s /q
-echo \\Fritz-nas\fritz.nas\Zu2weit\world gelöscht
+echo \\192.168.178.62\Fin\Zu2weit\world wird gelöscht...
+rd "\\192.168.178.62\Fin\Zu2weit\world" /s /q
+echo \\192.168.178.62\Fin\Zu2weit\world gelöscht
 color a
 color c
-echo \\Fritz-nas\fritz.nas\Zu2weit\world wird erstellt
-mkdir "\\Fritz-nas\fritz.nas\Zu2weit\world"
-echo \\Fritz-nas\fritz.nas\Zu2weit\world erstellt
+mkdir "\\192.168.178.62\Fin\Zu2weit\world"
+echo \\192.168.178.62\Fin\Zu2weit\world erstellt
 color a
 color c
-echo world\* wird zu \\Fritz-nas\fritz.nas\Zu2weit\world kopiert
-xcopy "world\*" "\\Fritz-nas\fritz.nas\Zu2weit\world" /ehqcy
-echo world\* wurde zu \\Fritz-nas\fritz.nas\Zu2weit\world kopiert
+echo world\* wird zu \\192.168.178.62\Fin\Zu2weit\world kopiert...
+xcopy "world\*" "\\192.168.178.62\Fin\Zu2weit\world" /ehqcy
+echo.
 color a
 ) else (
 color c
-echo \\Fritz-nas\fritz.nas\Zu2weit\world wird erstellt
-mkdir "\\Fritz-nas\fritz.nas\Zu2weit\world"
-echo \\Fritz-nas\fritz.nas\Zu2weit\world erstellt
+mkdir "\\192.168.178.62\Fin\Zu2weit\world"
+echo \\192.168.178.62\Fin\Zu2weit\world erstellt
 color a
 color c
-echo world\* wird zu \\Fritz-nas\fritz.nas\Zu2weit\world kopiert
-xcopy "world\*" "\\Fritz-nas\fritz.nas\Zu2weit\world" /ehqcy
-echo world\* wurde zu \\Fritz-nas\fritz.nas\Zu2weit\world kopiert
+echo world\* wird zu \\192.168.178.62\Fin\Zu2weit\world kopiert...
+xcopy "world\*" "\\192.168.178.62\Fin\Zu2weit\world" /ehqcy
+echo.
 color a
 )
 rem world_nether
-if exist "\\Fritz-nas\fritz.nas\Zu2weit\world_nether" (
+if exist "\\192.168.178.62\Fin\Zu2weit\world_nether" (
 color c
-echo \\Fritz-nas\fritz.nas\Zu2weit\world_nether wird gelöscht
-rd "\\Fritz-nas\fritz.nas\Zu2weit\world_nether" /s /q
-echo \\Fritz-nas\fritz.nas\Zu2weit\world_nether gelöscht
+echo \\192.168.178.62\Fin\Zu2weit\world_nether wird gelöscht...
+rd "\\192.168.178.62\Fin\Zu2weit\world_nether" /s /q
+echo \\192.168.178.62\Fin\Zu2weit\world_nether gelöscht
 color a
 color c
-echo \\Fritz-nas\fritz.nas\Zu2weit\world_nether wird erstellt
-mkdir "\\Fritz-nas\fritz.nas\Zu2weit\world_nether"
-echo \\Fritz-nas\fritz.nas\Zu2weit\world_nether erstellt
+mkdir "\\192.168.178.62\Fin\Zu2weit\world_nether"
+echo \\192.168.178.62\Fin\Zu2weit\world_nether erstellt
 color a
 color c
-echo world_nether\* wird zu \\Fritz-nas\fritz.nas\Zu2weit\world_nether kopiert
-xcopy "world_nether\*" "\\Fritz-nas\fritz.nas\Zu2weit\world_nether" /ehqcy
-echo world_nether\* wurde zu \\Fritz-nas\fritz.nas\Zu2weit\world_nether kopiert
+echo world_nether\* wird zu \\192.168.178.62\Fin\Zu2weit\world_nether kopiert...
+xcopy "world_nether\*" "\\192.168.178.62\Fin\Zu2weit\world_nether" /ehqcy
+echo.
 color a
 ) else (
 color c
-echo \\Fritz-nas\fritz.nas\Zu2weit\world_nether wird erstellt
-mkdir "\\Fritz-nas\fritz.nas\Zu2weit\world_nether"
-echo \\Fritz-nas\fritz.nas\Zu2weit\world_nether erstellt
+mkdir "\\192.168.178.62\Fin\Zu2weit\world_nether"
+echo \\192.168.178.62\Fin\Zu2weit\world_nether erstellt
 color a
 color c
-echo world_nether\* wird zu \\Fritz-nas\fritz.nas\Zu2weit\world_nether kopiert
-xcopy "world_nether\*" "\\Fritz-nas\fritz.nas\Zu2weit\world_nether" /ehqcy
-echo world_nether\* wurde zu \\Fritz-nas\fritz.nas\Zu2weit\world_nether kopiert
+echo world_nether\* wird zu \\192.168.178.62\Fin\Zu2weit\world_nether kopiert...
+xcopy "world_nether\*" "\\192.168.178.62\Fin\Zu2weit\world_nether" /ehqcy
+echo.
 color a
 )
 rem world_the_end
-if exist "\\Fritz-nas\fritz.nas\Zu2weit\world_the_end" (
-color c
-echo \\Fritz-nas\fritz.nas\Zu2weit\world_the_end wird gelöscht
-rd "\\Fritz-nas\fritz.nas\Zu2weit\world_the_end" /s /q
-echo \\Fritz-nas\fritz.nas\Zu2weit\world_the_end gelöscht
+if exist "\\192.168.178.62\Fin\Zu2weit\world_the_end" (
+color c 
+echo \\192.168.178.62\Fin\Zu2weit\world_the_end wird gelöscht...
+rd "\\192.168.178.62\Fin\Zu2weit\world_the_end" /s /q
+echo \\192.168.178.62\Fin\Zu2weit\world_the_end gelöscht
 color a
 color c
-echo \\Fritz-nas\fritz.nas\Zu2weit\world_the_end wird erstellt
-mkdir "\\Fritz-nas\fritz.nas\Zu2weit\world_the_end"
-echo \\Fritz-nas\fritz.nas\Zu2weit\world_the_end erstellt
+mkdir "\\192.168.178.62\Fin\Zu2weit\world_the_end"
+echo \\192.168.178.62\Fin\Zu2weit\world_the_end erstellt
 color a
 color c
-echo world_the_end\* wird zu \\Fritz-nas\fritz.nas\Zu2weit\world_the_end kopiert
-xcopy "world_the_end\*" "\\Fritz-nas\fritz.nas\Zu2weit\world_the_end" /ehqcy
-echo world_the_end\* wurde zu \\Fritz-nas\fritz.nas\Zu2weit\world_the_end kopiert
+echo world_the_end\* wird zu \\192.168.178.62\Fin\Zu2weit\world_the_end kopiert...
+xcopy "world_the_end\*" "\\192.168.178.62\Fin\Zu2weit\world_the_end" /ehqcy
+echo.
 color a
 ) else (
 color c
-echo \\Fritz-nas\fritz.nas\Zu2weit\world_the_end wird erstellt
-mkdir "\\Fritz-nas\fritz.nas\Zu2weit\world_the_end"
-echo \\Fritz-nas\fritz.nas\Zu2weit\world_the_end erstellt
+mkdir "\\192.168.178.62\Fin\Zu2weit\world_the_end"
+echo \\192.168.178.62\Fin\Zu2weit\world_the_end erstellt
 color a
 color c
-echo world_the_end\* wird zu \\Fritz-nas\fritz.nas\Zu2weit\world_the_end kopiert
-xcopy "world_the_end\*" "\\Fritz-nas\fritz.nas\Zu2weit\world_the_end" /ehqcy
-echo world_the_end\* wurde zu \\Fritz-nas\fritz.nas\Zu2weit\world_the_end kopiert
+echo world_the_end\* wird zu \\192.168.178.62\Fin\Zu2weit\world_the_end kopiert...
+xcopy "world_the_end\*" "\\192.168.178.62\Fin\Zu2weit\world_the_end" /ehqcy
+echo.
 color a
 )
 :exit

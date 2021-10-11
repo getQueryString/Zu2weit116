@@ -12,7 +12,6 @@ import org.bukkit.event.entity.EntityExplodeEvent;
 import org.bukkit.plugin.Plugin;
 import org.bukkit.scheduler.BukkitRunnable;
 
-import static org.bukkit.Bukkit.createWorld;
 import static org.bukkit.Bukkit.getConsoleSender;
 
 public class CreeperListener implements Listener {
